@@ -9,4 +9,6 @@ module com.example.pekversicherung {
 
     opens versicherung to javafx.fxml;
     exports versicherung;
+    exports versicherung.Controllers;
+    opens versicherung.Controllers to javafx.fxml;
 }
