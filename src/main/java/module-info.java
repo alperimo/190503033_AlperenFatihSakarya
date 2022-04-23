@@ -11,4 +11,6 @@ module com.example.pekversicherung {
     exports versicherung;
     exports versicherung.Controllers;
     opens versicherung.Controllers to javafx.fxml;
+
+    requires java.sql;
 }
