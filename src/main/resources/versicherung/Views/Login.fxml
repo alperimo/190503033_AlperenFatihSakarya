@@ -1,60 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
 <?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="960.0" styleClass="gradient-background" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <center>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" maxHeight="300.0" maxWidth="400.0" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="40.0" />
+         </BorderPane.margin>
          <children>
-            <VBox alignment="CENTER" maxHeight="-Infinity" prefHeight="169.0" prefWidth="400.0" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="0.0">
+            <HBox alignment="CENTER" prefHeight="68.0" prefWidth="400.0">
                <children>
-                  <Label text="Pek-Versicherung">
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="270.0" text="PV DASHBOARD">
                      <font>
-                        <Font size="32.0" />
+                        <Font name="Agency FB" size="37.0" />
                      </font>
                   </Label>
-                  <HBox alignment="TOP_CENTER" prefHeight="45.0" prefWidth="400.0" spacing="30.0">
-                     <children>
-                        <Label contentDisplay="CENTER" text="Username:">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Label>
-                        <TextField prefHeight="25.0" />
-                     </children>
-                     <padding>
-                        <Insets top="10.0" />
-                     </padding>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="40.0" prefWidth="400.0" spacing="36.0">
-                     <children>
-                        <Label contentDisplay="CENTER" text="Password:">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Label>
-                        <TextField alignment="TOP_LEFT" />
-                     </children>
-                     <padding>
-                        <Insets top="10.0" />
-                     </padding>
-                  </HBox>
-                  <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="31.0" prefWidth="400.0">
-                     <children>
-                        <Button alignment="CENTER" contentDisplay="CENTER" layoutX="250.0" layoutY="1.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="85.0" text="Login" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="65.0" AnchorPane.topAnchor="0.0" />
-                     </children>
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-                  </AnchorPane>
                </children>
-            </VBox>
+            </HBox>
+            <Pane prefHeight="2.0" prefWidth="400.0" styleClass="line" stylesheets="@../css/styles.css">
+               <VBox.margin>
+                  <Insets left="150.0" right="150.0" />
+               </VBox.margin>
+            </Pane>
+            <Label stylesheets="@../css/styles.css" text="Melde dich bitte an." textFill="#dbdbdb">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </Label>
+            <HBox alignment="CENTER" prefHeight="40.0" prefWidth="400.0" spacing="15.0">
+               <children>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/customer.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin></ImageView>
+                  <TextField alignment="CENTER" prefHeight="27.0" prefWidth="179.0" promptText="Benutzername..." styleClass="textfield" stylesheets="@../css/styles.css">
+                     <HBox.margin>
+                        <Insets right="30.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="40.0" prefWidth="400.0" spacing="15.0">
+               <children>
+                  <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/password.png" />
+                     </image>
+                  </ImageView>
+                  <TextField alignment="CENTER" prefHeight="27.0" prefWidth="179.0" promptText="Password..." styleClass="textfield" stylesheets="@../css/styles.css">
+                     <HBox.margin>
+                        <Insets right="30.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </HBox>
+            <Button alignment="CENTER" mnemonicParsing="false" prefHeight="28.0" prefWidth="90.0" styleClass="login-button" stylesheets="@../css/styles.css" text="Anmelden">
+               <VBox.margin>
+                  <Insets left="10.0" top="10.0" />
+               </VBox.margin>
+            </Button>
          </children>
-      </AnchorPane>
+      </VBox>
    </center>
 </BorderPane>

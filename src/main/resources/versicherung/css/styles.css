@@ -15,3 +15,16 @@
 .text{
     -fx-background-color: red;
 }
+
+.textfield{
+    -fx-background-color: none;
+    -fx-border-width: 0 0 2px 0;
+    -fx-border-color: rgba(223, 219, 219, 0.383);
+    -fx-text-fill: rgba(255, 255, 255, 0.575);
+}
+
+.login-button{
+    -fx-background-color: green;
+    -fx-text-fill: rgb(238, 232, 232);
+    -fx-background-radius: 0px;
+}
