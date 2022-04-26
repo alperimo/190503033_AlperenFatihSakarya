@@ -1,0 +1,17 @@
+.gradient-background{
+    -fx-background: #0f2027;
+    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #0f2027, #203a43, #2c5364);
+}
+
+.container{
+    -fx-background-color: rgba(211, 211, 211, 0.061);
+    -fx-background-radius: 10;
+}
+
+.line{
+    -fx-background-color: rgba(223, 219, 219, 0.383);
+}
+
+.text{
+    -fx-background-color: red;
+}
