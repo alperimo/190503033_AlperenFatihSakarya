@@ -1,5 +1,7 @@
 package versicherung.Models;
 
+import java.util.Date;
+
 public class Person {
     public String id = "";
     public String ausweisNummer = "";
@@ -7,15 +9,17 @@ public class Person {
     public String nachName = "";
     public String telefonNummer = "";
     public String adresse = "";
+    public Date geburstDatum;
 
     public Person() {
     }
 
-    public Person(String id, String ausweisNummer, String vorName, String nachName, String telefonNummer, String adresse) {
+    public Person(String id, String ausweisNummer, String vorName, String nachName, Date geburstDatum, String telefonNummer, String adresse) {
         this.id = id;
         this.ausweisNummer = ausweisNummer;
         this.vorName = vorName;
         this.nachName = nachName;
+        this.geburstDatum = geburstDatum;
         this.telefonNummer = telefonNummer;
         this.adresse = adresse;
     }
