@@ -28,3 +28,11 @@
     -fx-text-fill: rgb(238, 232, 232);
     -fx-background-radius: 0px;
 }
+
+.left-menu-button{
+    -fx-background-color: none;
+}
+
+.left-menu-button:hover{
+    -fx-background-color: rgba(223, 219, 219, 0.301);
+}

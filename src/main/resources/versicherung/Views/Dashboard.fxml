@@ -8,7 +8,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="960.0" styleClass="gradient-background" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="960.0" styleClass="gradient-background" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="versicherung.Controllers.Main">
    <top>
       <HBox alignment="CENTER_LEFT" prefHeight="73.0" prefWidth="960.0" BorderPane.alignment="CENTER">
          <children>
@@ -61,107 +61,130 @@
             </Pane>
             <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
                <children>
-                  <HBox alignment="CENTER" prefHeight="49.0" prefWidth="260.0">
-                     <children>
-                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../img/customer.png" />
-                           </image>
-                        </ImageView>
-                        <Label prefHeight="34.0" prefWidth="143.0" stylesheets="@../css/styles.css" text="Kunden" textFill="#dbdbdb">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                           <padding>
-                              <Insets left="15.0" />
-                           </padding>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="49.0" prefWidth="260.0">
-                     <children>
-                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../img/personal.png" />
-                           </image>
-                        </ImageView>
-                        <Label prefHeight="34.0" prefWidth="143.0" stylesheets="@../css/styles.css" text="Mitarbeitern" textFill="#dbdbdb">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                           <padding>
-                              <Insets left="15.0" />
-                           </padding>
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="49.0" prefWidth="260.0">
-                     <children>
-                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../img/insurance.png" />
-                           </image>
-                        </ImageView>
-                        <Label prefHeight="34.0" prefWidth="143.0" stylesheets="@../css/styles.css" text="Versicherung" textFill="#dbdbdb">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                           <padding>
-                              <Insets left="15.0" />
-                           </padding>
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="49.0" prefWidth="260.0">
-                     <children>
-                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../img/about.png" />
-                           </image>
-                        </ImageView>
-                        <Label prefHeight="34.0" prefWidth="143.0" stylesheets="@../css/styles.css" text="Über uns" textFill="#dbdbdb">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                           <padding>
-                              <Insets left="15.0" />
-                           </padding>
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="49.0" prefWidth="260.0">
-                     <children>
-                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../img/logout.png" />
-                           </image>
-                        </ImageView>
-                        <Label prefHeight="34.0" prefWidth="143.0" stylesheets="@../css/styles.css" text="Abmelden" textFill="#dbdbdb">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                           <padding>
-                              <Insets left="15.0" />
-                           </padding>
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </Label>
-                     </children>
-                  </HBox>
+                  <Button fx:id="leftMenu_btnKunden" mnemonicParsing="false" onAction="#handleLeftMenuButtonClicks" styleClass="left-menu-button" stylesheets="@../css/styles.css">
+                     <graphic>
+                        <HBox alignment="CENTER" prefHeight="49.0" prefWidth="260.0">
+                           <children>
+                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/customer.png" />
+                                 </image>
+                              </ImageView>
+                              <Label prefHeight="34.0" prefWidth="143.0" stylesheets="@../css/styles.css" text="Kunden" textFill="#dbdbdb">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                                 <padding>
+                                    <Insets left="15.0" />
+                                 </padding>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="leftMenu_btnMitarbeitern" mnemonicParsing="false" onAction="#handleLeftMenuButtonClicks" styleClass="left-menu-button" stylesheets="@../css/styles.css">
+                     <graphic>
+                        <HBox alignment="CENTER" prefHeight="49.0" prefWidth="260.0">
+                           <children>
+                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/personal.png" />
+                                 </image>
+                              </ImageView>
+                              <Label prefHeight="34.0" prefWidth="143.0" stylesheets="@../css/styles.css" text="Mitarbeitern" textFill="#dbdbdb">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="15.0" />
+                                 </padding>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="leftMenu_btnVersicherung" mnemonicParsing="false" onAction="#handleLeftMenuButtonClicks" styleClass="left-menu-button" stylesheets="@../css/styles.css">
+                     <graphic>
+                        <HBox alignment="CENTER" prefHeight="49.0" prefWidth="260.0">
+                           <children>
+                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/insurance.png" />
+                                 </image>
+                              </ImageView>
+                              <Label prefHeight="34.0" prefWidth="143.0" stylesheets="@../css/styles.css" text="Versicherung" textFill="#dbdbdb">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="15.0" />
+                                 </padding>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="leftMenu_btnUberuns" mnemonicParsing="false" onAction="#handleLeftMenuButtonClicks" styleClass="left-menu-button" stylesheets="@../css/styles.css">
+                     <graphic>
+                        <HBox alignment="CENTER" prefHeight="49.0" prefWidth="260.0">
+                           <children>
+                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/about.png" />
+                                 </image>
+                              </ImageView>
+                              <Label prefHeight="34.0" prefWidth="143.0" stylesheets="@../css/styles.css" text="Über uns" textFill="#dbdbdb">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="15.0" />
+                                 </padding>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="leftMenu_btnAbmelden" mnemonicParsing="false" onAction="#handleLeftMenuButtonClicks" styleClass="left-menu-button" stylesheets="@../css/styles.css">
+                     <graphic>
+                        <HBox alignment="CENTER" prefHeight="49.0" prefWidth="260.0">
+                           <children>
+                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/logout.png" />
+                                 </image>
+                              </ImageView>
+                              <Label prefHeight="34.0" prefWidth="143.0" stylesheets="@../css/styles.css" text="Abmelden" textFill="#dbdbdb">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="15.0" />
+                                 </padding>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </graphic>
+                  </Button>
                </children>
+               <VBox.margin>
+                  <Insets left="8.0" right="8.0" top="5.0" />
+               </VBox.margin>
             </VBox>
          </children>
          <BorderPane.margin>
@@ -169,4 +192,80 @@
          </BorderPane.margin>
       </VBox>
    </left>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox fillHeight="false" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <VBox prefHeight="88.0" prefWidth="660.0" styleClass="container" stylesheets="@../css/styles.css" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label fx:id="sceneUrl" text="/versicherung/kunden">
+                           <VBox.margin>
+                              <Insets left="40.0" top="20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="sceneName" text="Kunden">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="38.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                     <HBox.margin>
+                        <Insets left="15.0" right="10.0" />
+                     </HBox.margin>
+                  </VBox>
+               </children>
+            </HBox>
+            <StackPane fx:id="sceneStackPane" VBox.vgrow="ALWAYS">
+               <children>
+                  <VBox fx:id="sceneKunden" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="container" stylesheets="@../css/styles.css" VBox.vgrow="ALWAYS">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="15.0" right="10.0" />
+                     </VBox.margin>
+                     <children>
+                        <Label text="Kunden">
+                           <font>
+                              <Font size="51.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox fx:id="sceneMitarbeitern" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="container" stylesheets="@../css/styles.css">
+                     <children>
+                        <Label text="Mitarbeitern">
+                           <font>
+                              <Font size="51.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox fx:id="sceneVersicherung" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="container" stylesheets="@../css/styles.css">
+                     <children>
+                        <Label text="Versicherung">
+                           <font>
+                              <Font size="51.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox fx:id="sceneUberuns" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="container" stylesheets="@../css/styles.css">
+                     <children>
+                        <Label text="Über uns">
+                           <font>
+                              <Font size="51.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" left="15.0" right="10.0" />
+               </VBox.margin>
+            </StackPane>
+         </children>
+      </VBox>
+   </center>
 </BorderPane>
