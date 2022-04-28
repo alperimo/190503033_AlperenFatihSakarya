@@ -12,7 +12,7 @@ public class VersicherungsVertraege {
 
     static class VersicherungsVertrag{
         public String vertrag_id;
-        public String versicherungs_id;
+        public String versicherungstyp_id;
         public Date startDatum;
         public Date endDatum;
         public VertragStatus status;

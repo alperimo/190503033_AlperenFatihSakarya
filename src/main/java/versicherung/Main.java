@@ -10,7 +10,7 @@ import java.io.IOException;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Views/Login.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Views/Dashboard.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 960, 620);
         stage.setTitle("Pek-Versicherung V1.0");
         stage.setScene(scene);
