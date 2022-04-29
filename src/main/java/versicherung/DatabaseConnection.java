@@ -13,9 +13,10 @@ public class DatabaseConnection {
         String url = "jdbc:mysql://localhost/" + databaseName;
 
         try {
-            Class.forName("jdbc.mysql.cj.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             databaseLink = DriverManager.getConnection(url, databaseUser, databasePassword);
         }catch (Exception e){
+            System.out.println("lasnda");
             e.printStackTrace();
         }
 

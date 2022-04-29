@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Main implements Initializable {
+public class Dashboard implements Initializable {
 
     @FXML
     private Button leftMenu_btnKunden;

@@ -29,6 +29,10 @@
     -fx-background-radius: 0px;
 }
 
+.login-button:hover{
+    -fx-background-color: rgb(3, 161, 3);
+}
+
 .left-menu-button{
     -fx-background-color: none;
 }
