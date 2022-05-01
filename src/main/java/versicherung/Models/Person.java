@@ -45,6 +45,8 @@ public class Person {
         return telefonNummer;
     }
 
+    public Date getGeburstDatum() {return geburstDatum;}
+
     public String getAdresse() {
         return adresse;
     }

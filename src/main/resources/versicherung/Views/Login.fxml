@@ -63,7 +63,7 @@
                         <Image url="@../img/password.png" />
                      </image>
                   </ImageView>
-                  <PasswordField fx:id="field_password" alignment="CENTER" prefHeight="27.0" prefWidth="179.0" promptText="Password..." styleClass="textfield" stylesheets="@../css/styles.css">
+                  <PasswordField fx:id="field_password" alignment="CENTER" onAction="#handeLoginClick" prefHeight="27.0" prefWidth="179.0" promptText="Password..." styleClass="textfield" stylesheets="@../css/styles.css">
                      <HBox.margin>
                         <Insets right="28.0" />
                      </HBox.margin>

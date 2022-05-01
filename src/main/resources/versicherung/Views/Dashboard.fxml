@@ -359,7 +359,7 @@
                                                 <Font size="18.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="field_id1111" alignment="CENTER" prefHeight="27.0" prefWidth="179.0" styleClass="textfield" stylesheets="@../css/styles.css" HBox.hgrow="ALWAYS">
+                                          <TextField fx:id="sceneKunden_neueKunden_field_adresse" alignment="CENTER" prefHeight="27.0" prefWidth="179.0" styleClass="textfield" stylesheets="@../css/styles.css" HBox.hgrow="ALWAYS">
                                              <HBox.margin>
                                                 <Insets bottom="4.0" left="65.0" />
                                              </HBox.margin>
@@ -376,7 +376,7 @@
                                           </Button>
                                        </children>
                                        <VBox.margin>
-                                          <Insets />
+                                          <Insets top="5.0" />
                                        </VBox.margin>
                                        <padding>
                                           <Insets right="25.0" />

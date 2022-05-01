@@ -14,6 +14,7 @@ public class Main extends Application {
     private static Stage globalStage;
 
     private static Account account;
+    private static Connection connection;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -24,17 +25,21 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         DatabaseConnection db = new DatabaseConnection();
-        Connection connection = db.getConnection();
+        connection = db.getConnection();
 
         account = new Account();
 
-        testDB(connection);
+        testDB();
 
         launch();
     }
 
     public Account getAccount(){
         return account;
+    }
+
+    public static Connection getConnection(){
+        return connection;
     }
 
     public void loadLogin() throws IOException{
@@ -53,7 +58,7 @@ public class Main extends Application {
         globalStage.setScene(scene);
     }
 
-    public static void testDB(Connection connection){
+    public static void testDB(){
         String insertSql = "INSERT INTO kunden (ausweisnummer, vorName, nachName, geburstDatum, telefonNummer, adresse) VALUES "
                 + "('123', 'Alp', 'Baba', '2016-01-01', '095255215', 'lannnnnnn');";
 

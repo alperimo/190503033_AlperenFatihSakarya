@@ -9,10 +9,15 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import versicherung.DatabaseKunden;
 import versicherung.Main;
+import versicherung.Models.Kunde;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class Dashboard implements Initializable {
@@ -165,8 +170,23 @@ public class Dashboard implements Initializable {
 
     @FXML
     private void handleErstellenNeueKundenClick(ActionEvent event){
+        String vorName = sceneKunden_neueKunden_field_vorname.getText();
+        String nachName = sceneKunden_neueKunden_field_nachname.getText();
+        String ausweisNummer = sceneKunden_neueKunden_field_ausweisnummer.getText();
+        String geburstDatum = sceneKunden_neueKunden_field_geburstdatum.getText();
+        String telefonNummer = sceneKunden_neueKunden_field_telefonnummer.getText();
+        String adresse = sceneKunden_neueKunden_field_adresse.getText();
 
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date geburstDatum_dateFormat = null;
+        try {
+            geburstDatum_dateFormat = dateFormat.parse(geburstDatum);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
+        Kunde kunde = new Kunde(null, ausweisNummer, vorName, nachName, geburstDatum_dateFormat, telefonNummer, adresse);
+        DatabaseKunden.erstelleNeuKunden(kunde);
     }
 
     @Override
