@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -60,6 +61,9 @@ public class Dashboard implements Initializable {
     private HBox sceneKunden_buttons;
 
     @FXML
+    private VBox sceneKunden_alleKunden;
+
+    @FXML
     private VBox sceneKunden_neueKunden;
 
     @FXML
@@ -70,6 +74,25 @@ public class Dashboard implements Initializable {
 
     @FXML
     private Button sceneKunden_button_neueKunden;
+
+    /* Scene - Kunden (neue Kunden) */
+    @FXML
+    private TextField sceneKunden_neueKunden_field_vorname;
+
+    @FXML
+    private TextField sceneKunden_neueKunden_field_nachname;
+
+    @FXML
+    private TextField sceneKunden_neueKunden_field_ausweisnummer;
+
+    @FXML
+    private TextField sceneKunden_neueKunden_field_geburstdatum;
+
+    @FXML
+    private TextField sceneKunden_neueKunden_field_telefonnummer;
+
+    @FXML
+    private TextField sceneKunden_neueKunden_field_adresse;
 
     /* Override Methods */
 
@@ -123,11 +146,27 @@ public class Dashboard implements Initializable {
     private void handleSceneKundenButtonClicks(ActionEvent event)
     {
         hideAllSceneKundenItems();
-        if (event.getSource() == sceneKunden_button_neueKunden){
-            sceneKunden_neueKunden.setVisible(true);
-        }else if(event.getSource() == sceneKunden_button_auflisten){
-
+        if(event.getSource() == sceneKunden_button_auflisten){
+            sceneKunden_alleKunden.setVisible(true);
+            sceneUrl.setText("/versicherung/kunden/alleKunden");
+            sceneName.setText("Alle Kunden");
         }
+        else if (event.getSource() == sceneKunden_button_neueKunden){
+            sceneKunden_neueKunden.setVisible(true);
+            sceneUrl.setText("/versicherung/kunden/neuerKunde");
+            sceneName.setText("Neuer Kunde");
+        }
+    }
+
+    @FXML
+    private void handleBackToKundenClick(ActionEvent event){
+        leftMenu_btnKunden.fire();
+    }
+
+    @FXML
+    private void handleErstellenNeueKundenClick(ActionEvent event){
+
+
     }
 
     @Override
@@ -152,6 +191,7 @@ public class Dashboard implements Initializable {
 
     public void hideAllSceneKundenItems(){
         sceneKunden_buttons.setVisible(false);
+        sceneKunden_alleKunden.setVisible(false);
         sceneKunden_neueKunden.setVisible(false);
     }
 }
