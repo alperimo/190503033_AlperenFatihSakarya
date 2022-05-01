@@ -17,16 +17,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Views/Login.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 960, 620);
         globalStage = stage;
         stage.setTitle("Pek-Versicherung V1.0");
-        stage.setScene(scene);
-        stage.show();
-
-        Login controllerLogin = fxmlLoader.getController();
-        controllerLogin.setMyStage(stage);
-
+        loadLogin();
     }
 
     public static void main(String[] args) {
@@ -35,13 +28,23 @@ public class Main extends Application {
 
         account = new Account();
 
-        //testDB(connection);
+        testDB(connection);
 
         launch();
     }
 
     public Account getAccount(){
         return account;
+    }
+
+    public void loadLogin() throws IOException{
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Views/Login.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 960, 620);
+        globalStage.setScene(scene);
+        globalStage.show();
+
+        Login controllerLogin = fxmlLoader.getController();
+        controllerLogin.setMyStage(globalStage);
     }
 
     public void loadDashboard() throws IOException{
@@ -51,8 +54,8 @@ public class Main extends Application {
     }
 
     public static void testDB(Connection connection){
-        String insertSql = "INSERT INTO kunden (Name, ProductNumber, Color, StandardCost, ListPrice, SellStartDate) VALUES "
-                + "('NewBike', 'BikeNew', 'Blue', 50, 120, '2016-01-01');";
+        String insertSql = "INSERT INTO kunden (ausweisnummer, vorName, nachName, geburstDatum, telefonNummer, adresse) VALUES "
+                + "('123', 'Alp', 'Baba', '2016-01-01', '095255215', 'lannnnnnn');";
 
         ResultSet resultSet = null;
         try(PreparedStatement statement = connection.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS))
