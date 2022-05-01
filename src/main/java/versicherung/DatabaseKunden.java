@@ -10,10 +10,7 @@ public class DatabaseKunden {
     public static void erstelleNeuKunden(Kunde kunde){
         System.out.println("erstelleNeuKunden from DatabaseKunden");
         Connection connection = Main.getConnection();
-        /*String insertSql = "INSERT INTO kunden (ausweisnummer, vorName, nachName, geburstDatum, telefonNummer, adresse) VALUES "
-                       + "('"+kunde.getAusweisNummer()+"', '"+kunde.getVorName()+"', '"+kunde.getNachName()+"', '"+kunde.getGeburstDatum()+"', '"+kunde.getTelefonNummer()+"', '"+kunde.getAdresse()+"');";
-          */
-
+        
         Date geburstDatum = new Date(kunde.getGeburstDatum().getTime()); // NOTE: this should be java.sql.Date! not java.util.Date!!!
         String insertSql = "INSERT INTO kunden (ausweisnummer, vorName, nachName, geburstDatum, telefonNummer, adresse) VALUES "
                         + "('"+kunde.getAusweisNummer()+"', '"+kunde.getVorName()+"', '"+kunde.getNachName()+"', '"+geburstDatum+"', '"+kunde.getTelefonNummer()+"', '"+kunde.getAdresse()+"');";
