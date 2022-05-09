@@ -3,6 +3,7 @@ package versicherung.Controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -99,6 +100,25 @@ public class Dashboard implements Initializable {
     @FXML
     private TextField sceneKunden_neueKunden_field_adresse;
 
+    /* Versicherung */
+    @FXML
+    private HBox sceneVersicherung_buttons;
+
+    @FXML
+    private VBox sceneVersicherung_alleVertraege;
+
+    @FXML
+    private VBox sceneVersicherung_neueVertraege_erstellen;
+
+    @FXML
+    private Button sceneVersicherung_button_vertraege_auflisten;
+
+    @FXML
+    private Button sceneVersicherung_button_vertraege_erstellen;
+
+    @FXML
+    private Button sceneVersicherung_button_typen_bearbeiten;
+
     /* Override Methods */
 
     @FXML
@@ -186,7 +206,22 @@ public class Dashboard implements Initializable {
         }
 
         Kunde kunde = new Kunde(null, ausweisNummer, vorName, nachName, geburstDatum_dateFormat, telefonNummer, adresse);
-        DatabaseKunden.erstelleNeuKunden(kunde);
+        if (DatabaseKunden.erstelleNeuKunden(kunde)){
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setContentText("Neuer Kunde wurde erfolgreich erstellt.");
+            alert.show();
+            leftMenu_btnKunden.fire();
+        }
+    }
+
+    @FXML
+    private void handleBackToVersicherungClick(ActionEvent event){
+        leftMenu_btnVersicherung.fire();
+    }
+
+    @FXML
+    private void handleSceneVersicherungButtonClicks(ActionEvent event){
+
     }
 
     @Override

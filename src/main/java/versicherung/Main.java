@@ -29,7 +29,7 @@ public class Main extends Application {
 
         account = new Account();
 
-        testDB();
+        //testDB();
 
         launch();
     }

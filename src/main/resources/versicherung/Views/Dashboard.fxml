@@ -221,7 +221,7 @@
             </HBox>
             <StackPane fx:id="sceneStackPane" VBox.vgrow="ALWAYS">
                <children>
-                  <VBox fx:id="sceneKunden" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="container" stylesheets="@../css/styles.css" VBox.vgrow="ALWAYS">
+                  <VBox fx:id="sceneKunden" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="container" stylesheets="@../css/styles.css" visible="false" VBox.vgrow="ALWAYS">
                      <VBox.margin>
                         <Insets bottom="10.0" left="15.0" right="10.0" />
                      </VBox.margin>
@@ -397,13 +397,209 @@
                         </Label>
                      </children>
                   </VBox>
-                  <VBox fx:id="sceneVersicherung" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="container" stylesheets="@../css/styles.css" visible="false">
+                  <VBox fx:id="sceneVersicherung" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="container" stylesheets="@../css/styles.css">
                      <children>
-                        <Label text="Versicherung">
-                           <font>
-                              <Font size="51.0" />
-                           </font>
-                        </Label>
+                        <StackPane fx:id="sceneKunden_stackpane1" prefHeight="150.0" prefWidth="200.0">
+                           <children>
+                              <HBox fx:id="sceneVersicherung_buttons" alignment="CENTER" prefHeight="100.0" prefWidth="220.0" spacing="20.0" visible="false">
+                                 <children>
+                                    <Button fx:id="sceneVersicherung_button_vertraege_auflisten" mnemonicParsing="false" onAction="#handleSceneVersicherungButtonClicks" prefHeight="100.0" prefWidth="100.0" text="Alle Vertraege auflisten" textAlignment="CENTER" wrapText="true" />
+                                    <Button fx:id="sceneVersicherung_button_vertraege_erstellen" mnemonicParsing="false" onAction="#handleSceneVersicherungButtonClicks" prefHeight="100.0" prefWidth="100.0" text="Neue Vertraege erstellen" textAlignment="CENTER" wrapText="true" />
+                                    <Button fx:id="sceneVersicherung_button_typen_bearbeiten" mnemonicParsing="false" onAction="#handleSceneVersicherungButtonClicks" prefHeight="100.0" prefWidth="100.0" text="Versicherungs-Typen bearbeiten" textAlignment="CENTER" wrapText="true" />
+                                 </children>
+                              </HBox>
+                              <VBox fx:id="sceneVersicherung_alleVertraege" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" visible="false">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="360.0" spacing="15.0">
+                                       <children>
+                                          <Label text="Search:">
+                                             <font>
+                                                <Font size="15.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="field_id21" alignment="CENTER" prefHeight="27.0" prefWidth="179.0" promptText="Name...." styleClass="textfield" stylesheets="@../css/styles.css">
+                                             <HBox.margin>
+                                                <Insets bottom="4.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets left="20.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <TableView prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                       <columns>
+                                          <TableColumn prefWidth="46.0" text="Nr." />
+                                          <TableColumn prefWidth="118.0" text="Vorname" />
+                                          <TableColumn prefWidth="122.0" text="Nachname" />
+                                          <TableColumn prefWidth="127.0" text="Geburstdatum" />
+                                          <TableColumn prefWidth="144.0" text="Telefonnummer" />
+                                          <TableColumn prefWidth="95.0" text="Adresse" />
+                                       </columns>
+                                       <VBox.margin>
+                                          <Insets left="6.0" right="6.0" top="6.0" />
+                                       </VBox.margin>
+                                    </TableView>
+                                    <HBox alignment="CENTER" prefHeight="62.0" prefWidth="665.0" spacing="10.0">
+                                       <children>
+                                          <Button mnemonicParsing="false" onAction="#handleBackToVersicherungClick" prefHeight="31.0" prefWidth="78.0" text="Back" />
+                                          <Button disable="true" mnemonicParsing="false" prefHeight="31.0" prefWidth="78.0" text="Löschen" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <VBox fx:id="sceneVersicherung_neueVertraege_erstellen" alignment="CENTER" fillWidth="false" prefHeight="200.0" prefWidth="100.0" visible="false">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="360.0" spacing="15.0">
+                                       <children>
+                                          <Label text="Vorname">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="sceneKunden_neueKunden_field_vorname1" alignment="CENTER" prefHeight="27.0" prefWidth="179.0" styleClass="textfield" stylesheets="@../css/styles.css" HBox.hgrow="ALWAYS">
+                                             <HBox.margin>
+                                                <Insets bottom="4.0" left="55.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="360.0" spacing="15.0">
+                                       <children>
+                                          <Label text="Nachname">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="sceneKunden_neueKunden_field_nachname1" alignment="CENTER" prefHeight="27.0" prefWidth="179.0" styleClass="textfield" stylesheets="@../css/styles.css" HBox.hgrow="ALWAYS">
+                                             <HBox.margin>
+                                                <Insets bottom="4.0" left="44.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="360.0" spacing="15.0">
+                                       <children>
+                                          <Label text="Ausweisnummer">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="sceneKunden_neueKunden_field_ausweisnummer1" alignment="CENTER" prefHeight="27.0" prefWidth="179.0" styleClass="textfield" stylesheets="@../css/styles.css" HBox.hgrow="ALWAYS">
+                                             <HBox.margin>
+                                                <Insets bottom="4.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="360.0" spacing="15.0">
+                                       <children>
+                                          <Label text="Geburstdatum">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="sceneKunden_neueKunden_field_geburstdatum1" alignment="CENTER" prefHeight="27.0" prefWidth="179.0" promptText="dd/mm/yyyy" styleClass="textfield" stylesheets="@../css/styles.css" HBox.hgrow="ALWAYS">
+                                             <HBox.margin>
+                                                <Insets bottom="4.0" left="16.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="360.0" spacing="15.0">
+                                       <children>
+                                          <Label text="Telefonnummer">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="sceneKunden_neueKunden_field_telefonnummer1" alignment="CENTER" prefHeight="27.0" prefWidth="179.0" styleClass="textfield" stylesheets="@../css/styles.css" HBox.hgrow="ALWAYS">
+                                             <HBox.margin>
+                                                <Insets bottom="4.0" left="2.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="360.0" spacing="15.0">
+                                       <children>
+                                          <Label text="Adresse">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="sceneKunden_neueKunden_field_adresse1" alignment="CENTER" prefHeight="27.0" prefWidth="179.0" styleClass="textfield" stylesheets="@../css/styles.css" HBox.hgrow="ALWAYS">
+                                             <HBox.margin>
+                                                <Insets bottom="4.0" left="65.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_RIGHT" prefWidth="360.0" spacing="10.0">
+                                       <children>
+                                          <Button mnemonicParsing="false" onAction="#handleBackToVersicherungClick" prefHeight="50.0" prefWidth="81.0" text="Back" />
+                                          <Button mnemonicParsing="false" onAction="#handleErstellenNeueKundenClick" prefHeight="50.0" prefWidth="81.0" text="Erstellen">
+                                             <VBox.margin>
+                                                <Insets top="10.0" />
+                                             </VBox.margin>
+                                          </Button>
+                                       </children>
+                                       <padding>
+                                          <Insets right="25.0" />
+                                       </padding>
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <VBox fx:id="sceneVersicherung_VersicherungsTypen" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" visible="false">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="360.0" spacing="15.0">
+                                       <children>
+                                          <Label text="Search:">
+                                             <font>
+                                                <Font size="15.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="field_id211" alignment="CENTER" prefHeight="27.0" prefWidth="179.0" promptText="Kundenname...." styleClass="textfield" stylesheets="@../css/styles.css">
+                                             <HBox.margin>
+                                                <Insets bottom="4.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets left="20.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <TableView prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                       <columns>
+                                          <TableColumn prefWidth="46.0" text="Nr." />
+                                          <TableColumn prefWidth="118.0" text="Vorname" />
+                                          <TableColumn prefWidth="122.0" text="Nachname" />
+                                          <TableColumn prefWidth="127.0" text="Geburstdatum" />
+                                          <TableColumn prefWidth="144.0" text="Telefonnummer" />
+                                          <TableColumn prefWidth="95.0" text="Adresse" />
+                                       </columns>
+                                       <VBox.margin>
+                                          <Insets left="6.0" right="6.0" top="6.0" />
+                                       </VBox.margin>
+                                    </TableView>
+                                    <HBox alignment="CENTER" prefHeight="62.0" prefWidth="665.0" spacing="10.0">
+                                       <children>
+                                          <Button mnemonicParsing="false" onAction="#handleBackToKundenClick" prefHeight="31.0" prefWidth="78.0" text="Back" />
+                                          <Button disable="true" mnemonicParsing="false" prefHeight="31.0" prefWidth="78.0" text="Löschen" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </StackPane>
                      </children>
                   </VBox>
                   <VBox fx:id="sceneUberuns" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="container" stylesheets="@../css/styles.css" visible="false">
