@@ -221,7 +221,7 @@
             </HBox>
             <StackPane fx:id="sceneStackPane" VBox.vgrow="ALWAYS">
                <children>
-                  <VBox fx:id="sceneKunden" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="container" stylesheets="@../css/styles.css" visible="false" VBox.vgrow="ALWAYS">
+                  <VBox fx:id="sceneKunden" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="container" stylesheets="@../css/styles.css" VBox.vgrow="ALWAYS">
                      <VBox.margin>
                         <Insets bottom="10.0" left="15.0" right="10.0" />
                      </VBox.margin>
@@ -234,7 +234,7 @@
                                     <Button fx:id="sceneKunden_button_neueKunden" mnemonicParsing="false" onAction="#handleSceneKundenButtonClicks" prefHeight="100.0" prefWidth="100.0" text="Neuer Kunde erstellen" textAlignment="CENTER" wrapText="true" />
                                  </children>
                               </HBox>
-                              <VBox fx:id="sceneKunden_alleKunden" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" visible="false">
+                              <VBox fx:id="sceneKunden_alleKunden" alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                                  <children>
                                     <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="360.0" spacing="15.0">
                                        <children>
@@ -243,7 +243,7 @@
                                                 <Font size="15.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="field_id2" alignment="CENTER" prefHeight="27.0" prefWidth="179.0" promptText="Kundenname...." styleClass="textfield" stylesheets="@../css/styles.css">
+                                          <TextField fx:id="sceneKunden_alleKunden_field_name" alignment="CENTER" prefHeight="27.0" prefWidth="179.0" promptText="Kundenname...." styleClass="textfield" stylesheets="@../css/styles.css">
                                              <HBox.margin>
                                                 <Insets bottom="4.0" />
                                              </HBox.margin>
@@ -253,14 +253,15 @@
                                           <Insets left="20.0" />
                                        </VBox.margin>
                                     </HBox>
-                                    <TableView prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                    <TableView fx:id="sceneKunden_alleKunden_table" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                       <columns>
-                                        <TableColumn prefWidth="46.0" text="Nr." />
-                                        <TableColumn prefWidth="118.0" text="Vorname" />
-                                          <TableColumn prefWidth="122.0" text="Nachname" />
-                                          <TableColumn prefWidth="127.0" text="Geburstdatum" />
-                                          <TableColumn prefWidth="144.0" text="Telefonnummer" />
-                                          <TableColumn prefWidth="95.0" text="Adresse" />
+                                        <TableColumn fx:id="sceneKunden_alleKunden_table_column_id" prefWidth="46.0" text="Nr." />
+                                          <TableColumn fx:id="sceneKunden_alleKunden_table_column_ausweisNummer" prefWidth="115.0" text="AusweisNummer" />
+                                        <TableColumn fx:id="sceneKunden_alleKunden_table_column_vorName" prefWidth="87.0" text="Vorname" />
+                                          <TableColumn fx:id="sceneKunden_alleKunden_table_column_nachName" prefWidth="84.0" text="Nachname" />
+                                          <TableColumn fx:id="sceneKunden_alleKunden_table_column_geburstDatum" prefWidth="127.0" text="Geburstdatum" />
+                                          <TableColumn fx:id="sceneKunden_alleKunden_table_column_telefonNummer" prefWidth="144.0" text="Telefonnummer" />
+                                          <TableColumn fx:id="sceneKunden_alleKunden_table_column_adresse" prefWidth="95.0" text="Adresse" />
                                       </columns>
                                        <VBox.margin>
                                           <Insets left="6.0" right="6.0" top="6.0" />
@@ -269,12 +270,12 @@
                                     <HBox alignment="CENTER" prefHeight="62.0" prefWidth="665.0" spacing="10.0">
                                        <children>
                                           <Button mnemonicParsing="false" onAction="#handleBackToKundenClick" prefHeight="31.0" prefWidth="78.0" text="Back" />
-                                          <Button disable="true" mnemonicParsing="false" prefHeight="31.0" prefWidth="78.0" text="Löschen" />
+                                          <Button fx:id="sceneKunden_alleKunden_button_delete" disable="true" mnemonicParsing="false" prefHeight="31.0" prefWidth="78.0" text="Löschen" />
                                        </children>
                                     </HBox>
                                  </children>
                               </VBox>
-                              <VBox fx:id="sceneKunden_neueKunden" alignment="CENTER" fillWidth="false" prefHeight="200.0" prefWidth="100.0">
+                              <VBox fx:id="sceneKunden_neueKunden" alignment="CENTER" fillWidth="false" prefHeight="200.0" prefWidth="100.0" visible="false">
                                  <children>
                                     <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="360.0" spacing="15.0">
                                        <children>
@@ -397,7 +398,7 @@
                         </Label>
                      </children>
                   </VBox>
-                  <VBox fx:id="sceneVersicherung" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="container" stylesheets="@../css/styles.css">
+                  <VBox fx:id="sceneVersicherung" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="container" stylesheets="@../css/styles.css" visible="false">
                      <children>
                         <StackPane fx:id="sceneKunden_stackpane1" prefHeight="150.0" prefWidth="200.0">
                            <children>

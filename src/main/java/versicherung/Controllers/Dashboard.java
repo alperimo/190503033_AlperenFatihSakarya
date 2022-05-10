@@ -1,15 +1,19 @@
 package versicherung.Controllers;
 
+import javafx.beans.Observable;
+import javafx.beans.binding.Bindings;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import org.w3c.dom.events.MouseEvent;
 import versicherung.DatabaseKunden;
 import versicherung.Main;
 import versicherung.Models.Kunde;
@@ -81,6 +85,28 @@ public class Dashboard implements Initializable {
     @FXML
     private Button sceneKunden_button_neueKunden;
 
+    /* Scene - Kunden (alle Kunden) */
+    @FXML
+    private TableView<Kunde> sceneKunden_alleKunden_table;
+
+    @FXML
+    private TableColumn<Kunde, String> sceneKunden_alleKunden_table_column_id;
+    @FXML
+    private TableColumn<Kunde, String> sceneKunden_alleKunden_table_column_ausweisNummer;
+    @FXML
+    private TableColumn<Kunde, String> sceneKunden_alleKunden_table_column_vorName;
+    @FXML
+    private TableColumn<Kunde, String> sceneKunden_alleKunden_table_column_nachName;
+    @FXML
+    private TableColumn<Kunde, String> sceneKunden_alleKunden_table_column_geburstDatum;
+    @FXML
+    private TableColumn<Kunde, String> sceneKunden_alleKunden_table_column_telefonNummer;
+    @FXML
+    private TableColumn<Kunde, String> sceneKunden_alleKunden_table_column_adresse;
+
+    @FXML
+    private Button sceneKunden_alleKunden_button_delete;
+
     /* Scene - Kunden (neue Kunden) */
     @FXML
     private TextField sceneKunden_neueKunden_field_vorname;
@@ -118,6 +144,9 @@ public class Dashboard implements Initializable {
 
     @FXML
     private Button sceneVersicherung_button_typen_bearbeiten;
+
+    /* Daten */
+    private ObservableList<Kunde> datenKunden = FXCollections.observableArrayList();
 
     /* Override Methods */
 
@@ -175,6 +204,7 @@ public class Dashboard implements Initializable {
             sceneKunden_alleKunden.setVisible(true);
             sceneUrl.setText("/versicherung/kunden/alleKunden");
             sceneName.setText("Alle Kunden");
+            listAllKunden();
         }
         else if (event.getSource() == sceneKunden_button_neueKunden){
             sceneKunden_neueKunden.setVisible(true);
@@ -228,6 +258,8 @@ public class Dashboard implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         clearSceneHeader();
         hideAllSceneItems();
+
+        initializeAlleKundenTableView();
     }
 
     /* Methods */
@@ -244,9 +276,34 @@ public class Dashboard implements Initializable {
         });
     }
 
-    public void hideAllSceneKundenItems(){
+    public void hideAllSceneKundenItems()
+    {
         sceneKunden_buttons.setVisible(false);
         sceneKunden_alleKunden.setVisible(false);
         sceneKunden_neueKunden.setVisible(false);
+    }
+
+    public void initializeAlleKundenTableView()
+    {
+        sceneKunden_alleKunden_table_column_id.setCellValueFactory(new PropertyValueFactory<>("Id"));
+        sceneKunden_alleKunden_table_column_ausweisNummer.setCellValueFactory(new PropertyValueFactory<>("AusweisNummer"));
+        sceneKunden_alleKunden_table_column_vorName.setCellValueFactory(new PropertyValueFactory<>("VorName"));
+        sceneKunden_alleKunden_table_column_nachName.setCellValueFactory(new PropertyValueFactory<>("NachName"));
+        sceneKunden_alleKunden_table_column_telefonNummer.setCellValueFactory(new PropertyValueFactory<>("TelefonNummer"));
+        sceneKunden_alleKunden_table_column_adresse.setCellValueFactory(new PropertyValueFactory<>("Adresse"));
+
+        sceneKunden_alleKunden_button_delete.disableProperty().bind(Bindings.isEmpty(sceneKunden_alleKunden_table.getSelectionModel().getSelectedItems()));
+
+        //TODO remove this hardcoded Kunde class later.
+        Date d = new Date();
+        d.setTime(23132);
+        Kunde k = new Kunde("1", "1231231", "fasda", "dsada", d, "05/05/2332", "dsakjdasjd");
+        datenKunden.add(k);
+        sceneKunden_alleKunden_table.setItems(datenKunden);
+    }
+
+    public void listAllKunden()
+    {
+
     }
 }

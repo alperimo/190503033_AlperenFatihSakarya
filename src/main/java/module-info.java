@@ -8,6 +8,7 @@ module com.example.pekversicherung {
     requires org.kordamp.bootstrapfx.core;
 
     opens versicherung to javafx.fxml;
+    opens versicherung.Models to javafx.base;
     exports versicherung;
     exports versicherung.Controllers;
     opens versicherung.Controllers to javafx.fxml;
