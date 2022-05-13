@@ -23,6 +23,7 @@ import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class Dashboard implements Initializable {
@@ -252,6 +253,25 @@ public class Dashboard implements Initializable {
     @FXML
     private void handleSceneVersicherungButtonClicks(ActionEvent event){
 
+    }
+
+    @FXML
+    private void handleLoeschenKundenClick(ActionEvent event){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Kunde Löschen");
+        alert.setContentText("Möchten Sie diesen Kunde wirklich löschen?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            // TODO löschen
+            Kunde selectedKunde = sceneKunden_alleKunden_table.getSelectionModel().getSelectedItem();
+            if (selectedKunde != null){
+                // lösche...
+                System.out.println("Kunde namens " + selectedKunde.getVorName() + " wird gelöscht werden.");
+            }
+        }else{
+            System.out.println("Canceled");
+        }
     }
 
     @Override

@@ -270,7 +270,7 @@
                                     <HBox alignment="CENTER" prefHeight="62.0" prefWidth="665.0" spacing="10.0">
                                        <children>
                                           <Button mnemonicParsing="false" onAction="#handleBackToKundenClick" prefHeight="31.0" prefWidth="78.0" text="Back" />
-                                          <Button fx:id="sceneKunden_alleKunden_button_delete" disable="true" mnemonicParsing="false" prefHeight="31.0" prefWidth="78.0" text="Löschen" />
+                                          <Button fx:id="sceneKunden_alleKunden_button_delete" disable="true" mnemonicParsing="false" onAction="#handleLoeschenKundenClick" prefHeight="31.0" prefWidth="78.0" text="Löschen" />
                                        </children>
                                     </HBox>
                                  </children>
