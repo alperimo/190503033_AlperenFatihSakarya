@@ -20,8 +20,10 @@ import versicherung.Models.Kunde;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -205,7 +207,7 @@ public class Dashboard implements Initializable {
             sceneKunden_alleKunden.setVisible(true);
             sceneUrl.setText("/versicherung/kunden/alleKunden");
             sceneName.setText("Alle Kunden");
-            listAllKunden();
+            refreshAlleKundenList();
         }
         else if (event.getSource() == sceneKunden_button_neueKunden){
             sceneKunden_neueKunden.setVisible(true);
@@ -257,18 +259,20 @@ public class Dashboard implements Initializable {
 
     @FXML
     private void handleLoeschenKundenClick(ActionEvent event){
+        Kunde selectedKunde = sceneKunden_alleKunden_table.getSelectionModel().getSelectedItem();
+
+        if (selectedKunde == null)
+            return;
+
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Kunde Löschen");
+        alert.setHeaderText(selectedKunde.getVorName() + " " + selectedKunde.getNachName());
         alert.setContentText("Möchten Sie diesen Kunde wirklich löschen?");
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
             // TODO löschen
-            Kunde selectedKunde = sceneKunden_alleKunden_table.getSelectionModel().getSelectedItem();
-            if (selectedKunde != null){
-                // lösche...
-                System.out.println("Kunde namens " + selectedKunde.getVorName() + " wird gelöscht werden.");
-            }
+            System.out.println("Kunde namens " + selectedKunde.getVorName() + " wird gelöscht werden.");
         }else{
             System.out.println("Canceled");
         }
@@ -309,21 +313,24 @@ public class Dashboard implements Initializable {
         sceneKunden_alleKunden_table_column_ausweisNummer.setCellValueFactory(new PropertyValueFactory<>("AusweisNummer"));
         sceneKunden_alleKunden_table_column_vorName.setCellValueFactory(new PropertyValueFactory<>("VorName"));
         sceneKunden_alleKunden_table_column_nachName.setCellValueFactory(new PropertyValueFactory<>("NachName"));
+        sceneKunden_alleKunden_table_column_geburstDatum.setCellValueFactory(new PropertyValueFactory<>("GeburstDatum"));
         sceneKunden_alleKunden_table_column_telefonNummer.setCellValueFactory(new PropertyValueFactory<>("TelefonNummer"));
         sceneKunden_alleKunden_table_column_adresse.setCellValueFactory(new PropertyValueFactory<>("Adresse"));
 
         sceneKunden_alleKunden_button_delete.disableProperty().bind(Bindings.isEmpty(sceneKunden_alleKunden_table.getSelectionModel().getSelectedItems()));
 
-        //TODO remove this hardcoded Kunde class later.
-        Date d = new Date();
-        d.setTime(23132);
-        Kunde k = new Kunde("1", "1231231", "fasda", "dsada", d, "05/05/2332", "dsakjdasjd");
-        datenKunden.add(k);
-        sceneKunden_alleKunden_table.setItems(datenKunden);
+        refreshAlleKundenList();
     }
 
-    public void listAllKunden()
+    public void refreshAlleKundenList()
     {
-
+        try{
+            ArrayList<Kunde> kundenList = DatabaseKunden.getAlleKunden();
+            datenKunden = FXCollections.observableList(kundenList);
+            sceneKunden_alleKunden_table.setItems(datenKunden);
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 }

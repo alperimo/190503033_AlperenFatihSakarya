@@ -3,15 +3,19 @@ package versicherung;
 import versicherung.Models.Kunde;
 
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 public class DatabaseKunden {
     public DatabaseKunden() {}
 
-    public static boolean erstelleNeuKunden(Kunde kunde){
+    public static boolean erstelleNeuKunden(Kunde kunde) {
         System.out.println("erstelleNeuKunden from DatabaseKunden");
         Connection connection = Main.getConnection();
-        
+
         Date geburstDatum = new Date(kunde.getGeburstDatum().getTime()); // NOTE: this should be java.sql.Date! not java.util.Date!!!
+
         String insertSql = "INSERT INTO kunden (ausweisnummer, vorName, nachName, geburstDatum, telefonNummer, adresse) VALUES "
                         + "('"+kunde.getAusweisNummer()+"', '"+kunde.getVorName()+"', '"+kunde.getNachName()+"', '"+geburstDatum+"', '"+kunde.getTelefonNummer()+"', '"+kunde.getAdresse()+"');";
 
@@ -32,5 +36,22 @@ public class DatabaseKunden {
         }
 
         return isSuccesful;
+    }
+
+    public static ArrayList<Kunde> getAlleKunden() throws SQLException{
+        Connection connection = Main.getConnection();
+        ResultSet resultSet = null;
+
+        Statement statement = connection.createStatement();
+        String selectSql = "SELECT * from kunden";
+        resultSet = statement.executeQuery(selectSql);
+        ArrayList<Kunde> kundenList = new ArrayList<>();
+        while(resultSet.next()){
+            Kunde kunde = new Kunde(String.valueOf(resultSet.getInt("id")), resultSet.getString("ausweisNummer"), resultSet.getString("vorName"),
+                    resultSet.getString("nachName"), resultSet.getDate("geburstDatum"), resultSet.getString("telefonNummer"), resultSet.getString("adresse"));
+            kundenList.add(kunde);
+        }
+
+        return kundenList;
     }
 }
