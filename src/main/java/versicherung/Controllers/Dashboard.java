@@ -83,6 +83,9 @@ public class Dashboard implements Initializable {
     private StackPane sceneKunden_stackpane;
 
     @FXML
+    private StackPane sceneVersicherung_stackpane;
+
+    @FXML
     private Button sceneKunden_button_auflisten;
 
     @FXML
@@ -140,6 +143,9 @@ public class Dashboard implements Initializable {
     private VBox sceneVersicherung_neueVertraege_erstellen;
 
     @FXML
+    private VBox sceneVersicherung_VersicherungsTypen;
+
+    @FXML
     private Button sceneVersicherung_button_vertraege_auflisten;
 
     @FXML
@@ -178,6 +184,9 @@ public class Dashboard implements Initializable {
             sceneUrl.setText("/versicherung/versicherung");
             sceneName.setText("Versicherung");
             sceneVersicherung.setVisible(true);
+
+            hideAllSceneVersicherungsItems();
+            sceneVersicherung_buttons.setVisible(true);
         }
         else if(event.getSource() == leftMenu_btnUberuns)
         {
@@ -254,7 +263,10 @@ public class Dashboard implements Initializable {
 
     @FXML
     private void handleSceneVersicherungButtonClicks(ActionEvent event){
-
+        hideAllSceneVersicherungsItems();
+        if (event.getSource() == sceneVersicherung_button_typen_bearbeiten){
+            sceneVersicherung_VersicherungsTypen.setVisible(true);
+        }
     }
 
     @FXML
@@ -276,6 +288,16 @@ public class Dashboard implements Initializable {
         }else{
             System.out.println("Canceled");
         }
+    }
+
+    @FXML
+    private void handleLoeschenVersicherungsTypClick(ActionEvent event){
+
+    }
+
+    @FXML
+    private void handleErstellenVersicherungsTypClick(ActionEvent event){
+
     }
 
     @Override
@@ -305,6 +327,13 @@ public class Dashboard implements Initializable {
         sceneKunden_buttons.setVisible(false);
         sceneKunden_alleKunden.setVisible(false);
         sceneKunden_neueKunden.setVisible(false);
+    }
+
+    public void hideAllSceneVersicherungsItems()
+    {
+        sceneVersicherung_stackpane.getChildren().forEach((scene) -> {
+            scene.setVisible(false);
+        });
     }
 
     public void initializeAlleKundenTableView()
