@@ -40,6 +40,26 @@ public class DatabaseVersicherung {
         return isSuccesful;
     }
 
+    public static boolean loescheVersicherungsTyp(VersicherungsTyp versicherungsTyp)
+    {
+        Connection connection = Main.getConnection();
+
+        String deleteSql = "DELETE FROM versicherungstypen WHERE id = '"+versicherungsTyp.getId()+"';";
+
+        boolean isSuccesful = false;
+
+        try(PreparedStatement preparedStatement = connection.prepareStatement(deleteSql))
+        {
+            preparedStatement.executeUpdate();
+            isSuccesful = true;
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return isSuccesful;
+    }
+
     public static ArrayList<VersicherungsTyp> getAllVersicherungsTypen() throws SQLException{
         ArrayList<VersicherungsTyp> versicherungsTypen = new ArrayList<>();
         try {

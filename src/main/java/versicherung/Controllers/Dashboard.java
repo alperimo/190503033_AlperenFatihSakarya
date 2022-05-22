@@ -322,13 +322,29 @@ public class Dashboard implements Initializable {
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
-            // TODO löschen
-            System.out.println("VersicherungsTyp namens " + selectedVersicherungsTyp.getName() + " wird gelöscht werden.");
+            // create a instance of versicherungsTyp
+            VersicherungsTyp versicherungsTyp = new VersicherungsTyp(selectedVersicherungsTyp.getId(), selectedVersicherungsTyp.getName());
+
+            // control whether the versicherungsTyp is deleted
+            if (DatabaseVersicherung.loescheVersicherungsTyp(versicherungsTyp)){
+                Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+                confirmationAlert.setTitle("VersicherungsTyp Löschen");
+                confirmationAlert.setHeaderText(selectedVersicherungsTyp.getName());
+                confirmationAlert.setContentText("VersicherungsTyp wurde erfolgreich gelöscht.");
+                confirmationAlert.show();
+                refreshVersicherungsTypenList();
+            }
+            else{
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setTitle("VersicherungsTyp Löschen");
+                errorAlert.setHeaderText(selectedVersicherungsTyp.getName());
+                errorAlert.setContentText("VersicherungsTyp konnte nicht gelöscht werden.");
+                errorAlert.show();
+            }
         }else{
             System.out.println("Canceled");
         }
     }
-
 
     @FXML
     private void handleErstellenVersicherungsTypClick(ActionEvent event){
@@ -352,7 +368,7 @@ public class Dashboard implements Initializable {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setContentText("Neuer VersicherungsTyp ' " + versicherungsTypName + " ' erfolgreich erstellt.");
                 alert.show();
-                leftMenu_btnVersicherung.fire();
+                refreshVersicherungsTypenList();
             }
         }
     }
