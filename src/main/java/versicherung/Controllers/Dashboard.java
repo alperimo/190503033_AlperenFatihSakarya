@@ -15,8 +15,10 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import org.w3c.dom.events.MouseEvent;
 import versicherung.DatabaseKunden;
+import versicherung.DatabaseVersicherung;
 import versicherung.Main;
 import versicherung.Models.Kunde;
+import versicherung.Models.VersicherungsTyp;
 
 import java.io.IOException;
 import java.net.URL;
@@ -154,8 +156,22 @@ public class Dashboard implements Initializable {
     @FXML
     private Button sceneVersicherung_button_typen_bearbeiten;
 
+    @FXML
+    private TableView<VersicherungsTyp> sceneVersicherung_VersicherungsTypen_table;
+
+    @FXML
+    private TableColumn<VersicherungsTyp, String> sceneVersicherung_VersicherungsTypen_table_column_id;
+
+    @FXML
+    private TableColumn<VersicherungsTyp, String> sceneVersicherung_VersicherungsTypen_table_column_typname;
+
+    @FXML
+    private Button sceneVersicherung_VersicherungsTypen_button_delete;
+    
     /* Daten */
     private ObservableList<Kunde> datenKunden = FXCollections.observableArrayList();
+    private ObservableList<VersicherungsTyp> datenVersicherungsTypen = FXCollections.observableArrayList();
+
 
     /* Override Methods */
 
@@ -266,6 +282,7 @@ public class Dashboard implements Initializable {
         hideAllSceneVersicherungsItems();
         if (event.getSource() == sceneVersicherung_button_typen_bearbeiten){
             sceneVersicherung_VersicherungsTypen.setVisible(true);
+            refreshVersicherungsTypenList();
         }
     }
 
@@ -291,13 +308,53 @@ public class Dashboard implements Initializable {
     }
 
     @FXML
-    private void handleLoeschenVersicherungsTypClick(ActionEvent event){
+    private void handleLoeschenVersicherungsTypClick(ActionEvent event)
+    {
+        VersicherungsTyp selectedVersicherungsTyp = sceneVersicherung_VersicherungsTypen_table.getSelectionModel().getSelectedItem();
 
+        if (selectedVersicherungsTyp == null)
+            return;
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("VersicherungsTyp Löschen");
+        alert.setHeaderText(selectedVersicherungsTyp.getName());
+        alert.setContentText("Möchten Sie diesen VersicherungsTyp wirklich löschen?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            // TODO löschen
+            System.out.println("VersicherungsTyp namens " + selectedVersicherungsTyp.getName() + " wird gelöscht werden.");
+        }else{
+            System.out.println("Canceled");
+        }
     }
+
 
     @FXML
     private void handleErstellenVersicherungsTypClick(ActionEvent event){
+        // open a input dialog
+        TextInputDialog dialog = new TextInputDialog();
 
+        dialog.setTitle("Neuer VersicherungsTyp");
+
+        dialog.setHeaderText("Neuer VersicherungsTyp");
+
+        dialog.setContentText("Bitte geben Sie den Namen des neuen VersicherungsTyps ein:");
+
+        Optional<String> result = dialog.showAndWait();
+
+        if (result.isPresent()){
+            String versicherungsTypName = result.get();
+
+            // create a instance of versicherungsTyp and save it to the database
+            VersicherungsTyp versicherungsTyp = new VersicherungsTyp(null, versicherungsTypName);
+            if (DatabaseVersicherung.erstelleNeuVersicherungsTyp(versicherungsTyp)){
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setContentText("Neuer VersicherungsTyp ' " + versicherungsTypName + " ' erfolgreich erstellt.");
+                alert.show();
+                leftMenu_btnVersicherung.fire();
+            }
+        }
     }
 
     @Override
@@ -306,6 +363,7 @@ public class Dashboard implements Initializable {
         hideAllSceneItems();
 
         initializeAlleKundenTableView();
+        initializeVersicherungsTypenTableView();
     }
 
     /* Methods */
@@ -357,6 +415,28 @@ public class Dashboard implements Initializable {
             ArrayList<Kunde> kundenList = DatabaseKunden.getAlleKunden();
             datenKunden = FXCollections.observableList(kundenList);
             sceneKunden_alleKunden_table.setItems(datenKunden);
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void initializeVersicherungsTypenTableView()
+    {
+        sceneVersicherung_VersicherungsTypen_table_column_id.setCellValueFactory(new PropertyValueFactory<>("Id"));
+        sceneVersicherung_VersicherungsTypen_table_column_typname.setCellValueFactory(new PropertyValueFactory<>("Name"));
+
+        sceneVersicherung_VersicherungsTypen_button_delete.disableProperty().bind(Bindings.isEmpty(sceneVersicherung_VersicherungsTypen_table.getSelectionModel().getSelectedItems()));
+
+        refreshVersicherungsTypenList();
+    }
+
+    public void refreshVersicherungsTypenList()
+    {
+        try{
+            ArrayList<VersicherungsTyp> versicherungsTypenList = DatabaseVersicherung.getAllVersicherungsTypen();
+            datenVersicherungsTypen = FXCollections.observableList(versicherungsTypenList);
+            sceneVersicherung_VersicherungsTypen_table.setItems(datenVersicherungsTypen);
         }
         catch (SQLException e){
             e.printStackTrace();
