@@ -15,9 +15,11 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import org.w3c.dom.events.MouseEvent;
 import versicherung.DatabaseKunden;
+import versicherung.DatabaseMitarbeiter;
 import versicherung.DatabaseVersicherung;
 import versicherung.Main;
 import versicherung.Models.Kunde;
+import versicherung.Models.Mitarbeiter;
 import versicherung.Models.VersicherungsTyp;
 
 import java.io.IOException;
@@ -85,9 +87,6 @@ public class Dashboard implements Initializable {
     private StackPane sceneKunden_stackpane;
 
     @FXML
-    private StackPane sceneVersicherung_stackpane;
-
-    @FXML
     private Button sceneKunden_button_auflisten;
 
     @FXML
@@ -134,6 +133,71 @@ public class Dashboard implements Initializable {
     @FXML
     private TextField sceneKunden_neueKunden_field_adresse;
 
+    /* Scene - Mitarbeiter */
+    @FXML
+    private HBox sceneMitarbeiter_buttons;
+
+    @FXML
+    private VBox sceneMitarbeiter_alleMitarbeiter;
+
+    @FXML
+    private VBox sceneMitarbeiter_neueMitarbeiter;
+
+    @FXML
+    private StackPane sceneMitarbeiter_stackpane;
+
+    @FXML
+    private Button sceneMitarbeiter_button_auflisten;
+
+    @FXML
+    private Button sceneMitarbeiter_button_neueMitarbeiter;
+
+    /* Scene - Mitarbeiter (alle Mitarbeiter) */
+    @FXML
+    private TableView<Mitarbeiter> sceneMitarbeiter_alleMitarbeiter_table;
+
+    @FXML
+    private TableColumn<Mitarbeiter, String> sceneMitarbeiter_alleMitarbeiter_table_column_id;
+    @FXML
+    private TableColumn<Mitarbeiter, String> sceneMitarbeiter_alleMitarbeiter_table_column_ausweisNummer;
+    @FXML
+    private TableColumn<Mitarbeiter, String> sceneMitarbeiter_alleMitarbeiter_table_column_vorName;
+    @FXML
+    private TableColumn<Mitarbeiter, String> sceneMitarbeiter_alleMitarbeiter_table_column_nachName;
+    @FXML
+    private TableColumn<Mitarbeiter, String> sceneMitarbeiter_alleMitarbeiter_table_column_role;
+    @FXML
+    private TableColumn<Mitarbeiter, String> sceneMitarbeiter_alleMitarbeiter_table_column_geburstDatum;
+    @FXML
+    private TableColumn<Mitarbeiter, String> sceneMitarbeiter_alleMitarbeiter_table_column_telefonNummer;
+    @FXML
+    private TableColumn<Mitarbeiter, String> sceneMitarbeiter_alleMitarbeiter_table_column_adresse;
+
+    @FXML
+    private Button sceneMitarbeiter_alleMitarbeiter_button_delete;
+
+    /* Scene - Mitarbeiter (neue Mitarbeiter) */
+    @FXML
+    private TextField sceneMitarbeiter_neueMitarbeiter_field_vorname;
+
+    @FXML
+    private TextField sceneMitarbeiter_neueMitarbeiter_field_nachname;
+
+    @FXML
+    private TextField sceneMitarbeiter_neueMitarbeiter_field_ausweisnummer;
+
+    @FXML
+    private TextField sceneMitarbeiter_neueMitarbeiter_field_role;
+
+    @FXML
+    private TextField sceneMitarbeiter_neueMitarbeiter_field_geburstdatum;
+
+    @FXML
+    private TextField sceneMitarbeiter_neueMitarbeiter_field_telefonnummer;
+
+    @FXML
+    private TextField sceneMitarbeiter_neueMitarbeiter_field_adresse;
+
     /* Versicherung */
     @FXML
     private HBox sceneVersicherung_buttons;
@@ -143,6 +207,9 @@ public class Dashboard implements Initializable {
 
     @FXML
     private VBox sceneVersicherung_neueVertraege_erstellen;
+
+    @FXML
+    private StackPane sceneVersicherung_stackpane;
 
     @FXML
     private VBox sceneVersicherung_VersicherungsTypen;
@@ -170,6 +237,7 @@ public class Dashboard implements Initializable {
     
     /* Daten */
     private ObservableList<Kunde> datenKunden = FXCollections.observableArrayList();
+    private ObservableList<Mitarbeiter> datenMitarbeiter = FXCollections.observableArrayList();
     private ObservableList<VersicherungsTyp> datenVersicherungsTypen = FXCollections.observableArrayList();
 
 
@@ -194,6 +262,9 @@ public class Dashboard implements Initializable {
             sceneUrl.setText("/versicherung/mitarbeitern");
             sceneName.setText("Mitarbeitern");
             sceneMitarbeitern.setVisible(true);
+
+            hideAllSceneMitarbeiterItems();
+            sceneMitarbeiter_buttons.setVisible(true);
         }
         else if(event.getSource() == leftMenu_btnVersicherung)
         {
@@ -273,20 +344,6 @@ public class Dashboard implements Initializable {
     }
 
     @FXML
-    private void handleBackToVersicherungClick(ActionEvent event){
-        leftMenu_btnVersicherung.fire();
-    }
-
-    @FXML
-    private void handleSceneVersicherungButtonClicks(ActionEvent event){
-        hideAllSceneVersicherungsItems();
-        if (event.getSource() == sceneVersicherung_button_typen_bearbeiten){
-            sceneVersicherung_VersicherungsTypen.setVisible(true);
-            refreshVersicherungsTypenList();
-        }
-    }
-
-    @FXML
     private void handleLoeschenKundenClick(ActionEvent event){
         Kunde selectedKunde = sceneKunden_alleKunden_table.getSelectionModel().getSelectedItem();
 
@@ -321,6 +378,103 @@ public class Dashboard implements Initializable {
     }
 
     @FXML
+    private void handleBackToMitarbeiterClick(ActionEvent event){
+        leftMenu_btnMitarbeitern.fire();
+    }
+
+    @FXML
+    private void handleSceneMitarbeiterButtonClicks(ActionEvent event)
+    {
+        hideAllSceneMitarbeiterItems();
+        if(event.getSource() == sceneMitarbeiter_button_auflisten){
+            sceneMitarbeiter_alleMitarbeiter.setVisible(true);
+            sceneUrl.setText("/versicherung/mitarbeiter/alleMitarbeiter");
+            sceneName.setText("Alle Mitarbeiter");
+            refreshAlleMitarbeiterList();
+        }
+        else if (event.getSource() == sceneMitarbeiter_button_neueMitarbeiter){
+            sceneMitarbeiter_neueMitarbeiter.setVisible(true);
+            sceneUrl.setText("/versicherung/kunden/neuerMitarbeiter");
+            sceneName.setText("Neuer Mitarbeiter");
+        }
+    }
+
+    @FXML
+    private void handleErstellenNeueMitarbeiterClick(ActionEvent event){
+        String vorName = sceneMitarbeiter_neueMitarbeiter_field_vorname.getText();
+        String nachName = sceneMitarbeiter_neueMitarbeiter_field_nachname.getText();
+        String ausweisNummer = sceneMitarbeiter_neueMitarbeiter_field_ausweisnummer.getText();
+        String role = sceneMitarbeiter_neueMitarbeiter_field_role.getText();
+        String geburstDatum = sceneMitarbeiter_neueMitarbeiter_field_geburstdatum.getText();
+        String telefonNummer = sceneMitarbeiter_neueMitarbeiter_field_telefonnummer.getText();
+        String adresse = sceneMitarbeiter_neueMitarbeiter_field_adresse.getText();
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date geburstDatum_dateFormat = null;
+        try {
+            geburstDatum_dateFormat = dateFormat.parse(geburstDatum);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Mitarbeiter mitarbeiter = new Mitarbeiter(null, ausweisNummer, vorName, nachName, geburstDatum_dateFormat, telefonNummer, adresse, role);
+        if (DatabaseMitarbeiter.erstelleNeuMitarbeiter(mitarbeiter)){
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setContentText("Neuer Mitarbeiter wurde erfolgreich erstellt.");
+            alert.show();
+            leftMenu_btnMitarbeitern.fire();
+        }
+    }
+
+    @FXML
+    private void handleLoeschenMitarbeiterClick(ActionEvent event){
+        Mitarbeiter selectedMitarbeiter = sceneMitarbeiter_alleMitarbeiter_table.getSelectionModel().getSelectedItem();
+
+        if (selectedMitarbeiter == null)
+            return;
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Mitarbeiter Löschen");
+        alert.setHeaderText(selectedMitarbeiter.getVorName() + " " + selectedMitarbeiter.getNachName());
+        alert.setContentText("Möchten Sie diesen Mitarbeiter wirklich löschen?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            if (DatabaseMitarbeiter.loescheMitarbeiter(selectedMitarbeiter)){
+                Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+                confirmationAlert.setTitle("Mitarbeiter Löschen");
+                confirmationAlert.setHeaderText(selectedMitarbeiter.getVorName() + " " + selectedMitarbeiter.getNachName());
+                confirmationAlert.setContentText("Mitarbeiter wurde erfolgreich gelöscht.");
+                confirmationAlert.show();
+                refreshAlleKundenList();
+            }
+            else{
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setTitle("Mitarbeiter Löschen");
+                errorAlert.setHeaderText(selectedMitarbeiter.getVorName() + " " + selectedMitarbeiter.getNachName());
+                errorAlert.setContentText("Mitarbeiter konnte nicht gelöscht werden.");
+                errorAlert.show();
+            }
+        }else{
+            System.out.println("Canceled");
+        }
+    }
+
+    @FXML
+    private void handleBackToVersicherungClick(ActionEvent event){
+        leftMenu_btnVersicherung.fire();
+    }
+
+    @FXML
+    private void handleSceneVersicherungButtonClicks(ActionEvent event) {
+        hideAllSceneVersicherungsItems();
+        if (event.getSource() == sceneVersicherung_button_typen_bearbeiten) {
+            sceneVersicherung_VersicherungsTypen.setVisible(true);
+            refreshVersicherungsTypenList();
+        }
+    }
+
+    @FXML
     private void handleLoeschenVersicherungsTypClick(ActionEvent event)
     {
         VersicherungsTyp selectedVersicherungsTyp = sceneVersicherung_VersicherungsTypen_table.getSelectionModel().getSelectedItem();
@@ -335,7 +489,6 @@ public class Dashboard implements Initializable {
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
-            // create a instance of versicherungsTyp
             VersicherungsTyp versicherungsTyp = new VersicherungsTyp(selectedVersicherungsTyp.getId(), selectedVersicherungsTyp.getName());
 
             // control whether the versicherungsTyp is deleted
@@ -392,6 +545,7 @@ public class Dashboard implements Initializable {
         hideAllSceneItems();
 
         initializeAlleKundenTableView();
+        initializeAlleMitarbeiterTableView();
         initializeVersicherungsTypenTableView();
     }
 
@@ -414,6 +568,13 @@ public class Dashboard implements Initializable {
         sceneKunden_buttons.setVisible(false);
         sceneKunden_alleKunden.setVisible(false);
         sceneKunden_neueKunden.setVisible(false);
+    }
+
+    public void hideAllSceneMitarbeiterItems()
+    {
+        sceneMitarbeiter_stackpane.getChildren().forEach((scene) -> {
+            scene.setVisible(false);
+        });
     }
 
     public void hideAllSceneVersicherungsItems()
@@ -444,6 +605,34 @@ public class Dashboard implements Initializable {
             ArrayList<Kunde> kundenList = DatabaseKunden.getAlleKunden();
             datenKunden = FXCollections.observableList(kundenList);
             sceneKunden_alleKunden_table.setItems(datenKunden);
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void initializeAlleMitarbeiterTableView()
+    {
+        sceneMitarbeiter_alleMitarbeiter_table_column_id.setCellValueFactory(new PropertyValueFactory<>("Id"));
+        sceneMitarbeiter_alleMitarbeiter_table_column_ausweisNummer.setCellValueFactory(new PropertyValueFactory<>("AusweisNummer"));
+        sceneMitarbeiter_alleMitarbeiter_table_column_vorName.setCellValueFactory(new PropertyValueFactory<>("VorName"));
+        sceneMitarbeiter_alleMitarbeiter_table_column_nachName.setCellValueFactory(new PropertyValueFactory<>("NachName"));
+        sceneMitarbeiter_alleMitarbeiter_table_column_role.setCellValueFactory(new PropertyValueFactory<>("Arbeit_role"));
+        sceneMitarbeiter_alleMitarbeiter_table_column_geburstDatum.setCellValueFactory(new PropertyValueFactory<>("GeburstDatum"));
+        sceneMitarbeiter_alleMitarbeiter_table_column_telefonNummer.setCellValueFactory(new PropertyValueFactory<>("TelefonNummer"));
+        sceneMitarbeiter_alleMitarbeiter_table_column_adresse.setCellValueFactory(new PropertyValueFactory<>("Adresse"));
+
+        sceneMitarbeiter_alleMitarbeiter_button_delete.disableProperty().bind(Bindings.isEmpty(sceneMitarbeiter_alleMitarbeiter_table.getSelectionModel().getSelectedItems()));
+
+        refreshAlleMitarbeiterList();
+    }
+
+    public void refreshAlleMitarbeiterList()
+    {
+        try{
+            ArrayList<Mitarbeiter> mitarbeiterList = DatabaseMitarbeiter.getAlleMitarbeiter();
+            datenMitarbeiter = FXCollections.observableList(mitarbeiterList);
+            sceneMitarbeiter_alleMitarbeiter_table.setItems(datenMitarbeiter);
         }
         catch (SQLException e){
             e.printStackTrace();
