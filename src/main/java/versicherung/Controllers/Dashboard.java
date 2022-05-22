@@ -300,8 +300,21 @@ public class Dashboard implements Initializable {
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
-            // TODO löschen
-            System.out.println("Kunde namens " + selectedKunde.getVorName() + " wird gelöscht werden.");
+            if (DatabaseKunden.loescheKunde(selectedKunde)){
+                Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+                confirmationAlert.setTitle("Kunde Löschen");
+                confirmationAlert.setHeaderText(selectedKunde.getVorName() + " " + selectedKunde.getNachName());
+                confirmationAlert.setContentText("Kunde wurde erfolgreich gelöscht.");
+                confirmationAlert.show();
+                refreshAlleKundenList();
+            }
+            else{
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setTitle("Kunde Löschen");
+                errorAlert.setHeaderText(selectedKunde.getVorName() + " " + selectedKunde.getNachName());
+                errorAlert.setContentText("Kunde konnte nicht gelöscht werden.");
+                errorAlert.show();
+            }
         }else{
             System.out.println("Canceled");
         }

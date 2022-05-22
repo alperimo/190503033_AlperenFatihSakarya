@@ -38,6 +38,25 @@ public class DatabaseKunden {
         return isSuccesful;
     }
 
+    public static boolean loescheKunde(Kunde kunde) {
+        Connection connection = Main.getConnection();
+
+        String deleteSql = "DELETE FROM kunden WHERE id = '"+kunde.getId()+"';";
+
+        boolean isSuccesful = false;
+
+        try(PreparedStatement preparedStatement = connection.prepareStatement(deleteSql))
+        {
+            preparedStatement.executeUpdate();
+            isSuccesful = true;
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return isSuccesful;
+    }
+
     public static ArrayList<Kunde> getAlleKunden() throws SQLException{
         Connection connection = Main.getConnection();
         ResultSet resultSet = null;
