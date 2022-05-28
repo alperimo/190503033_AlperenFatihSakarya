@@ -200,6 +200,9 @@ public class Dashboard implements Initializable {
 
     /* Versicherung */
     @FXML
+    private StackPane sceneVersicherung_stackpane;
+
+    @FXML
     private HBox sceneVersicherung_buttons;
 
     @FXML
@@ -207,9 +210,6 @@ public class Dashboard implements Initializable {
 
     @FXML
     private VBox sceneVersicherung_neueVertraege_erstellen;
-
-    @FXML
-    private StackPane sceneVersicherung_stackpane;
 
     @FXML
     private VBox sceneVersicherung_VersicherungsTypen;
@@ -468,10 +468,18 @@ public class Dashboard implements Initializable {
     @FXML
     private void handleSceneVersicherungButtonClicks(ActionEvent event) {
         hideAllSceneVersicherungsItems();
-        if (event.getSource() == sceneVersicherung_button_typen_bearbeiten) {
+        if (event.getSource() == sceneVersicherung_button_vertraege_erstellen){
+            sceneVersicherung_neueVertraege_erstellen.setVisible(true);
+        }
+        else if (event.getSource() == sceneVersicherung_button_typen_bearbeiten) {
             sceneVersicherung_VersicherungsTypen.setVisible(true);
             refreshVersicherungsTypenList();
         }
+    }
+
+    @FXML
+    private void handleErstellenNeueVersicherungsVertraegeClick(ActionEvent event){
+        // TODO
     }
 
     @FXML
