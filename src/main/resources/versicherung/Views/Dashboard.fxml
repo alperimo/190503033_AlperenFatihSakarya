@@ -691,7 +691,7 @@
                                                 <Font size="18.0" />
                                              </font>
                                           </Label>
-                                          <DatePicker fx:id="sceneVersicherung_neueVertraege_datepicker_startdatum1" prefHeight="19.0" prefWidth="174.0">
+                                          <DatePicker fx:id="sceneVersicherung_neueVertraege_datepicker_enddatum" prefHeight="19.0" prefWidth="174.0">
                                              <HBox.margin>
                                                 <Insets left="78.0" />
                                              </HBox.margin>

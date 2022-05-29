@@ -13,6 +13,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.util.StringConverter;
 import org.w3c.dom.events.MouseEvent;
 import versicherung.DatabaseKunden;
 import versicherung.DatabaseMitarbeiter;
@@ -21,12 +22,16 @@ import versicherung.Main;
 import versicherung.Models.Kunde;
 import versicherung.Models.Mitarbeiter;
 import versicherung.Models.VersicherungsTyp;
+import versicherung.Models.VersicherungsVertrag;
+import versicherung.Models.VersicherungsVertrag.PersonTyp;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
@@ -198,7 +203,7 @@ public class Dashboard implements Initializable {
     @FXML
     private TextField sceneMitarbeiter_neueMitarbeiter_field_adresse;
 
-    /* Versicherung */
+    /* Scene - Versicherung */
     @FXML
     private StackPane sceneVersicherung_stackpane;
 
@@ -234,12 +239,28 @@ public class Dashboard implements Initializable {
 
     @FXML
     private Button sceneVersicherung_VersicherungsTypen_button_delete;
+
+    // Scene - Versicherung (neue Vertraege erstellen)
+
+    @FXML
+    private TextField sceneVersicherung_neueVertraege_field_personausweisnummer;
+    
+    @FXML
+    private ComboBox<PersonTyp> sceneVersicherung_neueVertraege_combobox_persontyp = new ComboBox<>();
+
+    @FXML
+    private ComboBox<VersicherungsTyp> sceneVersicherung_neueVertraege_combobox_versicherungstyp = new ComboBox<>();
+
+    @FXML
+    private DatePicker sceneVersicherung_neueVertraege_datepicker_startdatum;
+
+    @FXML
+    private DatePicker sceneVersicherung_neueVertraege_datepicker_enddatum;
     
     /* Daten */
     private ObservableList<Kunde> datenKunden = FXCollections.observableArrayList();
     private ObservableList<Mitarbeiter> datenMitarbeiter = FXCollections.observableArrayList();
     private ObservableList<VersicherungsTyp> datenVersicherungsTypen = FXCollections.observableArrayList();
-
 
     /* Override Methods */
 
@@ -470,6 +491,7 @@ public class Dashboard implements Initializable {
         hideAllSceneVersicherungsItems();
         if (event.getSource() == sceneVersicherung_button_vertraege_erstellen){
             sceneVersicherung_neueVertraege_erstellen.setVisible(true);
+            refreshVersicherungsVertrageErtellenItems();
         }
         else if (event.getSource() == sceneVersicherung_button_typen_bearbeiten) {
             sceneVersicherung_VersicherungsTypen.setVisible(true);
@@ -480,6 +502,28 @@ public class Dashboard implements Initializable {
     @FXML
     private void handleErstellenNeueVersicherungsVertraegeClick(ActionEvent event){
         // TODO
+        String ausweisNummer = sceneVersicherung_neueVertraege_field_personausweisnummer.getText();
+
+        PersonTyp personTyp = sceneVersicherung_neueVertraege_combobox_persontyp.getValue();
+        VersicherungsTyp versicherungsTyp = sceneVersicherung_neueVertraege_combobox_versicherungstyp.getValue();
+
+        String versicherungsTyp_id = versicherungsTyp.getId();
+
+        Date startDatum = null;
+        try {
+            startDatum = new SimpleDateFormat("dd-MM-yyyy").parse(sceneVersicherung_neueVertraege_datepicker_startdatum.getValue().toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Date endDatum = null;
+        try {
+            endDatum = new SimpleDateFormat("dd-MM-yyyy").parse(sceneVersicherung_neueVertraege_datepicker_enddatum.getValue().toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        // necessary args: ausweisNummer, personTyp, versicherungsTyp_id, startDatum, endDatum
     }
 
     @FXML
@@ -667,5 +711,55 @@ public class Dashboard implements Initializable {
         catch (SQLException e){
             e.printStackTrace();
         }
+    }
+
+    public void refreshVersicherungsVertrageErtellenItems()
+    {
+        // Combobox for PersonTyp
+        sceneVersicherung_neueVertraege_combobox_persontyp.getItems().setAll(PersonTyp.values());
+
+        sceneVersicherung_neueVertraege_combobox_persontyp.setConverter(new StringConverter<PersonTyp>() {
+            @Override
+            public String toString(PersonTyp object) {
+                if (object == null) return null;
+                return object.toString();
+            }
+
+            @Override
+            public PersonTyp fromString(String string) {
+                return PersonTyp.valueOf(string);
+            }
+        });
+
+        sceneVersicherung_neueVertraege_combobox_persontyp.setValue(PersonTyp.Kunde);
+
+        sceneVersicherung_neueVertraege_combobox_persontyp.valueProperty().addListener((observable, oldValue, newValue) -> {
+
+        });
+
+        // Combobox for VersicherungsTyp
+        sceneVersicherung_neueVertraege_combobox_versicherungstyp.setItems(datenVersicherungsTypen);
+
+        sceneVersicherung_neueVertraege_combobox_versicherungstyp.setConverter(new StringConverter<VersicherungsTyp>() {
+            @Override
+            public String toString(VersicherungsTyp object) {
+                if (object == null) return null;
+                return object.getName();
+            }
+
+            @Override
+            public VersicherungsTyp fromString(String string) {
+                for (VersicherungsTyp versicherungsTyp : datenVersicherungsTypen) {
+                    if (versicherungsTyp.getName().equals(string)) {
+                        return versicherungsTyp;
+                    }
+                }
+
+                return null;
+            }
+        });
+
+        if (!datenVersicherungsTypen.isEmpty())
+            sceneVersicherung_neueVertraege_combobox_versicherungstyp.setValue(datenVersicherungsTypen.get(0));
     }
 }

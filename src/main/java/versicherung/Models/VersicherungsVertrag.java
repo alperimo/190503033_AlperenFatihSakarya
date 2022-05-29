@@ -10,10 +10,20 @@ public class VersicherungsVertrag {
         Rejected
     }
 
-    enum PersonTyp{
-        Kunde,
-        Mitarbeiter,
-        VerwaltungsPersonal;
+    public enum PersonTyp{
+        Kunde("Kunde"),
+        Mitarbeiter("Mitarbeiter"),
+        VerwaltungsPersonal("VerwaltungsPersonal");
+
+        private String label;
+        
+        PersonTyp(String label){
+            this.label = label;
+        }
+        
+        public String toString(){
+            return this.label;
+        }
     }
 
     public String vertrag_id;
