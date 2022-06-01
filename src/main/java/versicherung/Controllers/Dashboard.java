@@ -15,14 +15,12 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.StringConverter;
 import org.w3c.dom.events.MouseEvent;
+import versicherung.DatabasePerson;
 import versicherung.DatabaseKunden;
 import versicherung.DatabaseMitarbeiter;
 import versicherung.DatabaseVersicherung;
 import versicherung.Main;
-import versicherung.Models.Kunde;
-import versicherung.Models.Mitarbeiter;
-import versicherung.Models.VersicherungsTyp;
-import versicherung.Models.VersicherungsVertrag;
+import versicherung.Models.*;
 import versicherung.Models.VersicherungsVertrag.PersonTyp;
 
 import java.io.IOException;
@@ -261,6 +259,7 @@ public class Dashboard implements Initializable {
     private ObservableList<Kunde> datenKunden = FXCollections.observableArrayList();
     private ObservableList<Mitarbeiter> datenMitarbeiter = FXCollections.observableArrayList();
     private ObservableList<VersicherungsTyp> datenVersicherungsTypen = FXCollections.observableArrayList();
+    private ObservableList<VersicherungsVertrag> datenVersicherungsVertraege = FXCollections.observableArrayList();
 
     /* Override Methods */
 
@@ -501,7 +500,6 @@ public class Dashboard implements Initializable {
 
     @FXML
     private void handleErstellenNeueVersicherungsVertraegeClick(ActionEvent event){
-        // TODO
         String ausweisNummer = sceneVersicherung_neueVertraege_field_personausweisnummer.getText();
 
         PersonTyp personTyp = sceneVersicherung_neueVertraege_combobox_persontyp.getValue();
@@ -511,19 +509,35 @@ public class Dashboard implements Initializable {
 
         Date startDatum = null;
         try {
-            startDatum = new SimpleDateFormat("dd-MM-yyyy").parse(sceneVersicherung_neueVertraege_datepicker_startdatum.getValue().toString());
+            startDatum = new SimpleDateFormat("yyyy-MM-dd").parse(sceneVersicherung_neueVertraege_datepicker_startdatum.getValue().toString());
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
         Date endDatum = null;
         try {
-            endDatum = new SimpleDateFormat("dd-MM-yyyy").parse(sceneVersicherung_neueVertraege_datepicker_enddatum.getValue().toString());
+            endDatum = new SimpleDateFormat("yyyy-MM-dd").parse(sceneVersicherung_neueVertraege_datepicker_enddatum.getValue().toString());
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
-        // necessary args: ausweisNummer, personTyp, versicherungsTyp_id, startDatum, endDatum
+        VersicherungsVertrag versicherungsVertrag;
+        Person person = DatabasePerson.getPersonFrom(ausweisNummer, personTyp);
+        if (person != null){
+            versicherungsVertrag = new VersicherungsVertrag(null, versicherungsTyp_id, person, personTyp, startDatum, endDatum, null);
+            if (DatabaseVersicherung.erstelleNeueVersicherungsVertraege(versicherungsVertrag)){
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setContentText("Neuer Vertrag wurde erfolgreich erstellt.");
+                alert.show();
+                leftMenu_btnVersicherung.fire();
+                refreshVersicherungsVertraegenList();
+            }
+        }
+        else{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Person mit der Ausweisnummer " + ausweisNummer + " existiert nicht.");
+            alert.show();
+        }
     }
 
     @FXML
@@ -761,5 +775,18 @@ public class Dashboard implements Initializable {
 
         if (!datenVersicherungsTypen.isEmpty())
             sceneVersicherung_neueVertraege_combobox_versicherungstyp.setValue(datenVersicherungsTypen.get(0));
+    }
+
+    public void refreshVersicherungsVertraegenList()
+    {
+        try{
+            ArrayList<VersicherungsVertrag> versicherungsVertraegeList = DatabaseVersicherung.getAllVersicherungsVertraege();
+            datenVersicherungsVertraege = FXCollections.observableList(versicherungsVertraegeList);
+            //TODO: create a sceneVersicherung_alleVertraege_table
+            //sceneVersicherung_alleVertraege_table.setItems(datenVersicherungsVertraege);
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 }

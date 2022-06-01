@@ -2,7 +2,9 @@ package versicherung;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import versicherung.Models.Person;
 import versicherung.Models.VersicherungsTyp;
+import versicherung.Models.VersicherungsVertrag;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -73,6 +75,47 @@ public class DatabaseVersicherung {
             e.printStackTrace();
         }
         return versicherungsTypen;
+    }
+
+    public static boolean erstelleNeueVersicherungsVertraege(VersicherungsVertrag newVertrag)
+    {
+        Connection connection = Main.getConnection();
+
+        Date startDatum = new Date(newVertrag.getStartDatum().getTime());
+        Date endDatum = new Date(newVertrag.getEndDatum().getTime());
+
+        String insertSql = "INSERT INTO versicherungsvertraege (versicherungstyp_id, person_id, person_typ, startDatum, endDatum) VALUES ('"+newVertrag.getVersicherungstyp_id()+"', '"+newVertrag.getPerson().getId()+"', '"+newVertrag.getPerson_typ()+"', '"+startDatum+"', '"+endDatum+"');";
+
+        boolean isSuccesful = false;
+
+        try(PreparedStatement preparedStatement = connection.prepareStatement(insertSql))
+        {
+            preparedStatement.executeUpdate();
+            isSuccesful = true;
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return isSuccesful;
+    }
+
+    public static ArrayList<VersicherungsVertrag> getAllVersicherungsVertraege() throws SQLException{
+        ArrayList<VersicherungsVertrag> versicherungsVertraege = new ArrayList<>();
+        try {
+            Connection connection = Main.getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM versicherungsvertraege");
+            while (resultSet.next()) {
+                Person person = new Person();
+                person.setId(resultSet.getString("person_id"));
+
+                versicherungsVertraege.add(new VersicherungsVertrag(String.valueOf(resultSet.getInt("id")), resultSet.getString("versicherungstyp_id"), person, VersicherungsVertrag.PersonTyp.valueOf(resultSet.getString("person_typ")), resultSet.getDate("startDatum"), resultSet.getDate("endDatum"), null));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return versicherungsVertraege;
     }
 
 }

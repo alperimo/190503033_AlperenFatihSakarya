@@ -10,6 +10,7 @@ public class VersicherungsVertrag {
         Rejected
     }
 
+    //TODO: place this PersonTyp as a seperated class within model
     public enum PersonTyp{
         Kunde("Kunde"),
         Mitarbeiter("Mitarbeiter"),
@@ -32,7 +33,18 @@ public class VersicherungsVertrag {
     public PersonTyp person_typ;
     public Date startDatum;
     public Date endDatum;
-    public VertragStatus status;
+    public VertragStatus status = null;
+
+    // generate a constructor with all attributes
+    public VersicherungsVertrag(String vertrag_id, String versicherungstyp_id, Person person, PersonTyp person_typ, Date startDatum, Date endDatum, VertragStatus status) {
+        this.vertrag_id = vertrag_id;
+        this.versicherungstyp_id = versicherungstyp_id;
+        this.person = person;
+        this.person_typ = person_typ;
+        this.startDatum = startDatum;
+        this.endDatum = endDatum;
+        this.status = status;
+    }
 
     public String getVertrag_id() {
         return vertrag_id;
