@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import versicherung.Models.Person;
 import versicherung.Models.VersicherungsTyp;
 import versicherung.Models.VersicherungsVertrag;
+import versicherung.Models.VersicherungsVertrag.PersonTyp;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -108,15 +109,70 @@ public class DatabaseVersicherung {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM versicherungsvertraege");
             while (resultSet.next()) {
                 Person person = new Person();
-                person.setId(resultSet.getString("person_id"));
                 //TODO: set person vorName, nachName and ausweisNummer from datebase according to person_typ and person_id
                 //TODO: get a versicherungstyp_name from versicherungs_typen according to versicherungs_typ_id;
-                versicherungsVertraege.add(new VersicherungsVertrag(String.valueOf(resultSet.getInt("id")), resultSet.getString("versicherungstyp_id"), null, person, VersicherungsVertrag.PersonTyp.valueOf(resultSet.getString("person_typ")), resultSet.getDate("startDatum"), resultSet.getDate("endDatum"), null));
+                setPersonInformationsFromPersonTypAndId(person, resultSet);
+                String versicherungsTypName = getVersicherungsTypNameFromId(resultSet.getInt("versicherungstyp_id"));
+                versicherungsVertraege.add(new VersicherungsVertrag(String.valueOf(resultSet.getInt("id")), resultSet.getString("versicherungstyp_id"), versicherungsTypName, person, VersicherungsVertrag.PersonTyp.valueOf(resultSet.getString("person_typ")), resultSet.getDate("startDatum"), resultSet.getDate("endDatum"), null));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return versicherungsVertraege;
+    }
+
+    public static void setPersonInformationsFromPersonTypAndId(Person person, ResultSet resultSet) throws SQLException
+    {
+        int personId = resultSet.getInt("person_id");
+        PersonTyp personTyp = PersonTyp.valueOf(resultSet.getString("person_typ"));
+        person.setId(String.valueOf(personId));
+        
+        String tableName = "";
+        switch (personTyp) {
+            case Kunde:
+                tableName = "kunden";
+                break;
+            case Mitarbeiter:
+                tableName = "mitarbeiter";
+                break;
+            case VerwaltungsPersonal:
+                tableName = "verwaltungspersonal";
+                break;
+            default:
+                break;
+        }
+
+        String getPersonInformationsSql = "SELECT vorName, nachName, ausweisNummer FROM "+tableName+" WHERE id = "+personId+";";
+        try(PreparedStatement preparedStatement = Main.getConnection().prepareStatement(getPersonInformationsSql))
+        {
+            ResultSet personInformationsResultSet = preparedStatement.executeQuery();
+            while(personInformationsResultSet.next())
+            {
+                person.setVorName(personInformationsResultSet.getString("vorName"));
+                person.setNachName(personInformationsResultSet.getString("nachName"));
+                person.setAusweisNummer(personInformationsResultSet.getString("ausweisNummer"));
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    public static String getVersicherungsTypNameFromId(int versicherungs_typ_id) throws SQLException
+    {
+        String versicherungs_name = null;
+        try{
+            Connection connection = Main.getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT name FROM versicherungstypen WHERE id = '"+versicherungs_typ_id+"';");
+            while (resultSet.next()) {
+                versicherungs_name = resultSet.getString("name");
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        return versicherungs_name;
     }
 
 }
