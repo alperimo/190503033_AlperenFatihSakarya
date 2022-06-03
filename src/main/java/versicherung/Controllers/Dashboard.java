@@ -241,7 +241,7 @@ public class Dashboard implements Initializable {
     @FXML
     private TableColumn<VersicherungsVertrag, String> sceneVersicherung_alleVertraege_table_column_ausweisNummer;
     @FXML
-    private TableColumn<VersicherungsVertrag, String> sceneVersicherung_alleVertraege_table_column_role;
+    private TableColumn<VersicherungsVertrag, String> sceneVersicherung_alleVertraege_table_column_persontyp;
     @FXML
     private TableColumn<VersicherungsVertrag, String> sceneVersicherung_alleVertraege_table_column_startDatum;
     @FXML
@@ -747,10 +747,10 @@ public class Dashboard implements Initializable {
     {
         sceneVersicherung_alleVertraege_table_column_id.setCellValueFactory(new PropertyValueFactory<>("Vertrag_id"));
         sceneVersicherung_alleVertraege_table_column_versicherungstyp.setCellValueFactory(new PropertyValueFactory<>("Versicherungstyp_name"));
-        sceneVersicherung_alleVertraege_table_column_vorName.setCellValueFactory(new PropertyValueFactory<>("Person_VorName"));
-        sceneVersicherung_alleVertraege_table_column_nachName.setCellValueFactory(new PropertyValueFactory<>("Person_NachName"));
-        sceneVersicherung_alleVertraege_table_column_ausweisNummer.setCellValueFactory(new PropertyValueFactory<>("Person_AusweisNummer"));
-        sceneVersicherung_alleVertraege_table_column_role.setCellValueFactory(new PropertyValueFactory<>("Person_typName"));
+        sceneVersicherung_alleVertraege_table_column_vorName.setCellValueFactory(new PropertyValueFactory<>("Person_vorName"));
+        sceneVersicherung_alleVertraege_table_column_nachName.setCellValueFactory(new PropertyValueFactory<>("Person_nachName"));
+        sceneVersicherung_alleVertraege_table_column_ausweisNummer.setCellValueFactory(new PropertyValueFactory<>("Person_ausweisNummer"));
+        sceneVersicherung_alleVertraege_table_column_persontyp.setCellValueFactory(new PropertyValueFactory<>("Person_typName"));
         sceneVersicherung_alleVertraege_table_column_startDatum.setCellValueFactory(new PropertyValueFactory<>("StartDatum"));
         sceneVersicherung_alleVertraege_table_column_endDatum.setCellValueFactory(new PropertyValueFactory<>("EndDatum"));
 
