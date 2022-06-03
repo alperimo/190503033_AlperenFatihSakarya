@@ -29,6 +29,7 @@ public class VersicherungsVertrag {
 
     public String vertrag_id;
     public String versicherungstyp_id;
+    public String versicherungstyp_name;
     public Person person;
     public PersonTyp person_typ;
     public Date startDatum;
@@ -36,9 +37,10 @@ public class VersicherungsVertrag {
     public VertragStatus status = null;
 
     // generate a constructor with all attributes
-    public VersicherungsVertrag(String vertrag_id, String versicherungstyp_id, Person person, PersonTyp person_typ, Date startDatum, Date endDatum, VertragStatus status) {
+    public VersicherungsVertrag(String vertrag_id, String versicherungstyp_id, String versicherungstyp_name, Person person, PersonTyp person_typ, Date startDatum, Date endDatum, VertragStatus status) {
         this.vertrag_id = vertrag_id;
         this.versicherungstyp_id = versicherungstyp_id;
+        this.versicherungstyp_name = versicherungstyp_name;
         this.person = person;
         this.person_typ = person_typ;
         this.startDatum = startDatum;
@@ -62,6 +64,14 @@ public class VersicherungsVertrag {
         this.versicherungstyp_id = versicherungstyp_id;
     }
 
+    public String getVersicherungstyp_name() {
+        return versicherungstyp_name;
+    }
+
+    public void setVersicherungstyp_name(String versicherungstyp_name) {
+        this.versicherungstyp_name = versicherungstyp_name;
+    }
+
     public Person getPerson() {
         return person;
     }
@@ -74,8 +84,27 @@ public class VersicherungsVertrag {
         return person_typ;
     }
 
+    public String getPerson_typName(){
+        return person_typ.toString();
+    }
+
     public void setPerson_typ(PersonTyp person_typ) {
         this.person_typ = person_typ;
+    }
+
+    public String getPerson_vorName()
+    {
+        return person.getVorName();
+    }
+
+    public String getPerson_nachName()
+    {
+        return person.getNachName();
+    }
+
+    public String getPerson_ausweisNummer()
+    {
+        return person.getAusweisNummer();
     }
 
     public Date getStartDatum() {

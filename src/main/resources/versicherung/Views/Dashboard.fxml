@@ -418,7 +418,7 @@
                                           <Insets left="20.0" />
                                        </VBox.margin>
                                     </HBox>
-                                    <TableView fx:id="sceneMitarbeiter_alleMitarbeiter_table" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                    <TableView fx:id="sceneVersicherung_alleVertraege_table" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                        <columns>
                                           <TableColumn fx:id="sceneMitarbeiter_alleMitarbeiter_table_column_id" prefWidth="46.0" text="Nr." />
                                           <TableColumn fx:id="sceneMitarbeiter_alleMitarbeiter_table_column_ausweisNummer" prefWidth="115.0" text="AusweisNummer" />
@@ -569,6 +569,15 @@
                         </StackPane>
                      </children>
                   </VBox>
+                  <VBox fx:id="sceneUberuns" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="container" stylesheets="@../css/styles.css" visible="false">
+                     <children>
+                        <Label text="Über uns">
+                           <font>
+                              <Font size="51.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
                   <VBox fx:id="sceneVersicherung" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="container" stylesheets="@../css/styles.css">
                      <children>
                         <StackPane fx:id="sceneVersicherung_stackpane" prefHeight="150.0" prefWidth="200.0">
@@ -580,7 +589,7 @@
                                     <Button fx:id="sceneVersicherung_button_typen_bearbeiten" mnemonicParsing="false" onAction="#handleSceneVersicherungButtonClicks" prefHeight="100.0" prefWidth="100.0" text="Versicherungs-Typen bearbeiten" textAlignment="CENTER" wrapText="true" />
                                  </children>
                               </HBox>
-                              <VBox fx:id="sceneVersicherung_alleVertraege" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" visible="false">
+                              <VBox fx:id="sceneVersicherung_alleVertraege" alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                                  <children>
                                     <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="360.0" spacing="15.0">
                                        <children>
@@ -599,14 +608,16 @@
                                           <Insets left="20.0" />
                                        </VBox.margin>
                                     </HBox>
-                                    <TableView prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                    <TableView fx:id="sceneVersicherung_alleVertraege_table" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                        <columns>
-                                          <TableColumn prefWidth="46.0" text="Nr." />
-                                          <TableColumn prefWidth="118.0" text="Vorname" />
-                                          <TableColumn prefWidth="122.0" text="Nachname" />
-                                          <TableColumn prefWidth="127.0" text="Geburstdatum" />
-                                          <TableColumn prefWidth="144.0" text="Telefonnummer" />
-                                          <TableColumn prefWidth="95.0" text="Adresse" />
+                                          <TableColumn fx:id="sceneVersicherung_alleVertraege_table_column_id" prefWidth="46.0" text="Nr." />
+                                          <TableColumn fx:id="sceneVersicherung_alleVertraege_table_column_versicherungstyp" prefWidth="108.0" text="VersicherungsTyp" />
+                                          <TableColumn fx:id="sceneVersicherung_alleVertraege_table_column_vorName" prefWidth="97.0" text="Vorname" />
+                                          <TableColumn fx:id="sceneVersicherung_alleVertraege_table_column_nachName" prefWidth="119.0" text="Nachname" />
+                                          <TableColumn fx:id="sceneVersicherung_alleVertraege_table_column_ausweisNummer" prefWidth="103.0" text="Ausweisnummer" />
+                                          <TableColumn fx:id="sceneVersicherung_alleVertraege_table_column_persontyp" prefWidth="66.0" text="Role" />
+                                          <TableColumn fx:id="sceneVersicherung_alleVertraege_table_column_startdatum" prefWidth="99.0" text="Startdatum" />
+                                          <TableColumn fx:id="sceneVersicherung_alleVertraege_table_column_enddatum" prefWidth="204.0" text="Enddatum" />
                                        </columns>
                                        <VBox.margin>
                                           <Insets left="6.0" right="6.0" top="6.0" />
@@ -615,12 +626,12 @@
                                     <HBox alignment="CENTER" prefHeight="62.0" prefWidth="665.0" spacing="10.0">
                                        <children>
                                           <Button mnemonicParsing="false" onAction="#handleBackToVersicherungClick" prefHeight="31.0" prefWidth="78.0" text="Back" />
-                                          <Button disable="true" mnemonicParsing="false" prefHeight="31.0" prefWidth="78.0" text="Löschen" />
+                                          <Button disable="true" mnemonicParsing="false" onAction="#handleLoeschenVersicherungsVertraegeClick" prefHeight="31.0" prefWidth="78.0" text="Löschen" />
                                        </children>
                                     </HBox>
                                  </children>
                               </VBox>
-                              <VBox fx:id="sceneVersicherung_neueVertraege_erstellen" alignment="CENTER" fillWidth="false" prefHeight="200.0" prefWidth="100.0">
+                              <VBox fx:id="sceneVersicherung_neueVertraege_erstellen" alignment="CENTER" fillWidth="false" prefHeight="200.0" prefWidth="100.0" visible="false">
                                  <children>
                                     <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="360.0" spacing="15.0">
                                        <children>
@@ -755,15 +766,6 @@
                               </VBox>
                            </children>
                         </StackPane>
-                     </children>
-                  </VBox>
-                  <VBox fx:id="sceneUberuns" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="container" stylesheets="@../css/styles.css" visible="false">
-                     <children>
-                        <Label text="Über uns">
-                           <font>
-                              <Font size="51.0" />
-                           </font>
-                        </Label>
                      </children>
                   </VBox>
                </children>

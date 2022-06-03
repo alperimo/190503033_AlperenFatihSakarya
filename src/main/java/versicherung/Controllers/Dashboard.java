@@ -226,6 +226,32 @@ public class Dashboard implements Initializable {
     @FXML
     private Button sceneVersicherung_button_typen_bearbeiten;
 
+    // Scene - Versicherung (alle Versicherungsvertraege auflisten)
+    @FXML
+    private TableView<VersicherungsVertrag> sceneVersicherung_alleVertraege_table;
+
+    @FXML
+    private TableColumn<VersicherungsVertrag, String> sceneVersicherung_alleVertraege_table_column_id;
+    @FXML
+    private TableColumn<VersicherungsVertrag, String> sceneVersicherung_alleVertraege_table_column_versicherungstyp;
+    @FXML
+    private TableColumn<VersicherungsVertrag, String> sceneVersicherung_alleVertraege_table_column_vorName;
+    @FXML
+    private TableColumn<VersicherungsVertrag, String> sceneVersicherung_alleVertraege_table_column_nachName;
+    @FXML
+    private TableColumn<VersicherungsVertrag, String> sceneVersicherung_alleVertraege_table_column_ausweisNummer;
+    @FXML
+    private TableColumn<VersicherungsVertrag, String> sceneVersicherung_alleVertraege_table_column_role;
+    @FXML
+    private TableColumn<VersicherungsVertrag, String> sceneVersicherung_alleVertraege_table_column_startDatum;
+    @FXML
+    private TableColumn<VersicherungsVertrag, String> sceneVersicherung_alleVertraege_table_column_endDatum;
+
+    @FXML
+    private Button sceneVersicherung_alleVertraege_button_delete;
+
+    // Scene - Versicherung (VersicherungsTypen bearbeiten)
+
     @FXML
     private TableView<VersicherungsTyp> sceneVersicherung_VersicherungsTypen_table;
 
@@ -488,7 +514,12 @@ public class Dashboard implements Initializable {
     @FXML
     private void handleSceneVersicherungButtonClicks(ActionEvent event) {
         hideAllSceneVersicherungsItems();
-        if (event.getSource() == sceneVersicherung_button_vertraege_erstellen){
+        if (event.getSource() == sceneVersicherung_button_vertraege_auflisten)
+        {
+            sceneVersicherung_alleVertraege.setVisible(true);
+            refreshVersicherungsVertraegenList();
+        }
+        else if (event.getSource() == sceneVersicherung_button_vertraege_erstellen){
             sceneVersicherung_neueVertraege_erstellen.setVisible(true);
             refreshVersicherungsVertrageErtellenItems();
         }
@@ -524,7 +555,7 @@ public class Dashboard implements Initializable {
         VersicherungsVertrag versicherungsVertrag;
         Person person = DatabasePerson.getPersonFrom(ausweisNummer, personTyp);
         if (person != null){
-            versicherungsVertrag = new VersicherungsVertrag(null, versicherungsTyp_id, person, personTyp, startDatum, endDatum, null);
+            versicherungsVertrag = new VersicherungsVertrag(null, versicherungsTyp_id, versicherungsTyp.getName(), person, personTyp, startDatum, endDatum, null);
             if (DatabaseVersicherung.erstelleNeueVersicherungsVertraege(versicherungsVertrag)){
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setContentText("Neuer Vertrag wurde erfolgreich erstellt.");
@@ -605,6 +636,12 @@ public class Dashboard implements Initializable {
         }
     }
 
+    @FXML
+    private void handleLoeschenVersicherungsVertraegeClick(ActionEvent event)
+    {
+        //TODO
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         clearSceneHeader();
@@ -613,6 +650,7 @@ public class Dashboard implements Initializable {
         initializeAlleKundenTableView();
         initializeAlleMitarbeiterTableView();
         initializeVersicherungsTypenTableView();
+        initializeAlleVersicherungsVertraegeTableView();
     }
 
     /* Methods */
@@ -705,6 +743,34 @@ public class Dashboard implements Initializable {
         }
     }
 
+    public void initializeAlleVersicherungsVertraegeTableView()
+    {
+        sceneVersicherung_alleVertraege_table_column_id.setCellValueFactory(new PropertyValueFactory<>("Vertrag_id"));
+        sceneVersicherung_alleVertraege_table_column_versicherungstyp.setCellValueFactory(new PropertyValueFactory<>("Versicherungstyp_name"));
+        sceneVersicherung_alleVertraege_table_column_vorName.setCellValueFactory(new PropertyValueFactory<>("Person_VorName"));
+        sceneVersicherung_alleVertraege_table_column_nachName.setCellValueFactory(new PropertyValueFactory<>("Person_NachName"));
+        sceneVersicherung_alleVertraege_table_column_ausweisNummer.setCellValueFactory(new PropertyValueFactory<>("Person_AusweisNummer"));
+        sceneVersicherung_alleVertraege_table_column_role.setCellValueFactory(new PropertyValueFactory<>("Person_typName"));
+        sceneVersicherung_alleVertraege_table_column_startDatum.setCellValueFactory(new PropertyValueFactory<>("StartDatum"));
+        sceneVersicherung_alleVertraege_table_column_endDatum.setCellValueFactory(new PropertyValueFactory<>("EndDatum"));
+
+        sceneVersicherung_alleVertraege_button_delete.disableProperty().bind(Bindings.isEmpty(sceneVersicherung_alleVertraege_table.getSelectionModel().getSelectedItems()));
+
+        refreshVersicherungsVertraegenList();
+    }
+
+    public void refreshVersicherungsVertraegenList()
+    {
+        try{
+            ArrayList<VersicherungsVertrag> versicherungsVertraegeList = DatabaseVersicherung.getAllVersicherungsVertraege();
+            datenVersicherungsVertraege = FXCollections.observableList(versicherungsVertraegeList);
+            sceneVersicherung_alleVertraege_table.setItems(datenVersicherungsVertraege);
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
     public void initializeVersicherungsTypenTableView()
     {
         sceneVersicherung_VersicherungsTypen_table_column_id.setCellValueFactory(new PropertyValueFactory<>("Id"));
@@ -775,18 +841,5 @@ public class Dashboard implements Initializable {
 
         if (!datenVersicherungsTypen.isEmpty())
             sceneVersicherung_neueVertraege_combobox_versicherungstyp.setValue(datenVersicherungsTypen.get(0));
-    }
-
-    public void refreshVersicherungsVertraegenList()
-    {
-        try{
-            ArrayList<VersicherungsVertrag> versicherungsVertraegeList = DatabaseVersicherung.getAllVersicherungsVertraege();
-            datenVersicherungsVertraege = FXCollections.observableList(versicherungsVertraegeList);
-            //TODO: create a sceneVersicherung_alleVertraege_table
-            //sceneVersicherung_alleVertraege_table.setItems(datenVersicherungsVertraege);
-        }
-        catch (SQLException e){
-            e.printStackTrace();
-        }
     }
 }

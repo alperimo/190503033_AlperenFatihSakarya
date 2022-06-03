@@ -109,8 +109,9 @@ public class DatabaseVersicherung {
             while (resultSet.next()) {
                 Person person = new Person();
                 person.setId(resultSet.getString("person_id"));
-
-                versicherungsVertraege.add(new VersicherungsVertrag(String.valueOf(resultSet.getInt("id")), resultSet.getString("versicherungstyp_id"), person, VersicherungsVertrag.PersonTyp.valueOf(resultSet.getString("person_typ")), resultSet.getDate("startDatum"), resultSet.getDate("endDatum"), null));
+                //TODO: set person vorName, nachName and ausweisNummer from datebase according to person_typ and person_id
+                //TODO: get a versicherungstyp_name from versicherungs_typen according to versicherungs_typ_id;
+                versicherungsVertraege.add(new VersicherungsVertrag(String.valueOf(resultSet.getInt("id")), resultSet.getString("versicherungstyp_id"), null, person, VersicherungsVertrag.PersonTyp.valueOf(resultSet.getString("person_typ")), resultSet.getDate("startDatum"), resultSet.getDate("endDatum"), null));
             }
         } catch (SQLException e) {
             e.printStackTrace();
