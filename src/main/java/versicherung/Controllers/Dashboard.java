@@ -37,6 +37,14 @@ import java.util.ResourceBundle;
 
 public class Dashboard implements Initializable {
 
+    /* Left Menu */
+
+    @FXML
+    private Label personal_infos_text_name;
+
+    @FXML
+    private Label personal_infos_text_role;
+
     @FXML
     private Button leftMenu_btnKunden;
 
@@ -625,7 +633,6 @@ public class Dashboard implements Initializable {
         if (result.isPresent()){
             String versicherungsTypName = result.get();
 
-            // create a instance of versicherungsTyp and save it to the database
             VersicherungsTyp versicherungsTyp = new VersicherungsTyp(null, versicherungsTypName);
             if (DatabaseVersicherung.erstelleNeuVersicherungsTyp(versicherungsTyp)){
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -646,6 +653,8 @@ public class Dashboard implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         clearSceneHeader();
         hideAllSceneItems();
+
+        refreshAccountInfos();
 
         initializeAlleKundenTableView();
         initializeAlleMitarbeiterTableView();
@@ -686,6 +695,13 @@ public class Dashboard implements Initializable {
         sceneVersicherung_stackpane.getChildren().forEach((scene) -> {
             scene.setVisible(false);
         });
+    }
+
+    public void refreshAccountInfos()
+    {
+        VerwaltungsPersonal personal = Main.getAccount().getPerson();
+        personal_infos_text_name.setText(personal.getVorName() + " " + personal.getNachName());
+        personal_infos_text_role.setText(VersicherungsVertrag.PersonTyp.VerwaltungsPersonal.toString());
     }
 
     public void initializeAlleKundenTableView()

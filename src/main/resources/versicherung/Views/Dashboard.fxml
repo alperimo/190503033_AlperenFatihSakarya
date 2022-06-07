@@ -40,12 +40,12 @@
                <children>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Label alignment="CENTER" prefHeight="20.0" prefWidth="176.0" text="Alperen Fatih Sakarya">
+                        <Label fx:id="personal_infos_text_name" alignment="CENTER" prefHeight="20.0" prefWidth="176.0" text="Alperen Fatih Sakarya">
                            <font>
                               <Font name="Arial Narrow" size="20.0" />
                            </font>
                         </Label>
-                        <Label alignment="CENTER" prefHeight="20.0" prefWidth="176.0" text="Verwaltungspersonal">
+                        <Label fx:id="personal_infos_text_role" alignment="CENTER" prefHeight="20.0" prefWidth="176.0" text="Verwaltungspersonal">
                            <font>
                               <Font name="Arial Narrow" size="19.0" />
                            </font>
@@ -420,14 +420,14 @@
                                     </HBox>
                                     <TableView fx:id="sceneMitarbeiter_alleMitarbeiter_table" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                        <columns>
-                                          <TableColumn fx:id="sceneMitarbeiter_alleMitarbeiter_table_column_id" prefWidth="46.0" text="Nr." />
-                                          <TableColumn fx:id="sceneMitarbeiter_alleMitarbeiter_table_column_ausweisNummer" prefWidth="115.0" text="AusweisNummer" />
-                                          <TableColumn fx:id="sceneMitarbeiter_alleMitarbeiter_table_column_vorName" prefWidth="87.0" text="Vorname" />
-                                          <TableColumn fx:id="sceneMitarbeiter_alleMitarbeiter_table_column_nachName" prefWidth="84.0" text="Nachname" />
-                                          <TableColumn fx:id="sceneMitarbeiter_alleMitarbeiter_table_column_role" prefWidth="84.0" text="Role" />
-                                          <TableColumn fx:id="sceneMitarbeiter_alleMitarbeiter_table_column_geburstDatum" prefWidth="127.0" text="Geburstdatum" />
-                                          <TableColumn fx:id="sceneMitarbeiter_alleMitarbeiter_table_column_telefonNummer" prefWidth="144.0" text="Telefonnummer" />
-                                          <TableColumn fx:id="sceneMitarbeiter_alleMitarbeiter_table_column_adresse" prefWidth="95.0" text="Adresse" />
+                                          <TableColumn fx:id="sceneMitarbeiter_alleMitarbeiter_table_column_id" prefWidth="46.0" style="-fx-alignment: CENTER;" text="Nr." />
+                                          <TableColumn fx:id="sceneMitarbeiter_alleMitarbeiter_table_column_ausweisNummer" prefWidth="115.0" style="-fx-alignment: CENTER;" text="AusweisNummer" />
+                                          <TableColumn fx:id="sceneMitarbeiter_alleMitarbeiter_table_column_vorName" prefWidth="87.0" style="-fx-alignment: CENTER;" text="Vorname" />
+                                          <TableColumn fx:id="sceneMitarbeiter_alleMitarbeiter_table_column_nachName" prefWidth="84.0" style="-fx-alignment: CENTER;" text="Nachname" />
+                                          <TableColumn fx:id="sceneMitarbeiter_alleMitarbeiter_table_column_role" prefWidth="84.0" style="-fx-alignment: CENTER;" text="Role" />
+                                          <TableColumn fx:id="sceneMitarbeiter_alleMitarbeiter_table_column_geburstDatum" prefWidth="127.0" style="-fx-alignment: CENTER;" text="Geburstdatum" />
+                                          <TableColumn fx:id="sceneMitarbeiter_alleMitarbeiter_table_column_telefonNummer" prefWidth="144.0" style="-fx-alignment: CENTER;" text="Telefonnummer" />
+                                          <TableColumn fx:id="sceneMitarbeiter_alleMitarbeiter_table_column_adresse" prefWidth="95.0" style="-fx-alignment: CENTER;" text="Adresse" />
                                        </columns>
                                        <VBox.margin>
                                           <Insets left="6.0" right="6.0" top="6.0" />
@@ -601,14 +601,14 @@
                                     </HBox>
                                     <TableView fx:id="sceneVersicherung_alleVertraege_table" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                        <columns>
-                                          <TableColumn fx:id="sceneVersicherung_alleVertraege_table_column_id" prefWidth="46.0" text="Nr." />
-                                          <TableColumn fx:id="sceneVersicherung_alleVertraege_table_column_versicherungstyp" prefWidth="108.0" text="VersicherungsTyp" />
-                                          <TableColumn fx:id="sceneVersicherung_alleVertraege_table_column_vorName" prefWidth="97.0" text="Vorname" />
-                                          <TableColumn fx:id="sceneVersicherung_alleVertraege_table_column_nachName" prefWidth="119.0" text="Nachname" />
-                                          <TableColumn fx:id="sceneVersicherung_alleVertraege_table_column_ausweisNummer" prefWidth="103.0" text="Ausweisnummer" />
-                                          <TableColumn fx:id="sceneVersicherung_alleVertraege_table_column_persontyp" prefWidth="66.0" text="Role" />
-                                          <TableColumn fx:id="sceneVersicherung_alleVertraege_table_column_startDatum" prefWidth="99.0" text="Startdatum" />
-                                          <TableColumn fx:id="sceneVersicherung_alleVertraege_table_column_endDatum" prefWidth="204.0" text="Enddatum" />
+                                          <TableColumn fx:id="sceneVersicherung_alleVertraege_table_column_id" prefWidth="46.0" style="-fx-alignment: CENTER;" text="Nr." />
+                                          <TableColumn fx:id="sceneVersicherung_alleVertraege_table_column_versicherungstyp" prefWidth="108.0" style="-fx-alignment: CENTER;" text="VersicherungsTyp" />
+                                          <TableColumn fx:id="sceneVersicherung_alleVertraege_table_column_vorName" prefWidth="97.0" style="-fx-alignment: CENTER;" text="Vorname" />
+                                          <TableColumn fx:id="sceneVersicherung_alleVertraege_table_column_nachName" prefWidth="119.0" style="-fx-alignment: CENTER;" text="Nachname" />
+                                          <TableColumn fx:id="sceneVersicherung_alleVertraege_table_column_ausweisNummer" prefWidth="103.0" style="-fx-alignment: CENTER;" text="Ausweisnummer" />
+                                          <TableColumn fx:id="sceneVersicherung_alleVertraege_table_column_persontyp" prefWidth="66.0" style="-fx-alignment: CENTER;" text="Role" />
+                                          <TableColumn fx:id="sceneVersicherung_alleVertraege_table_column_startDatum" prefWidth="99.0" style="-fx-alignment: CENTER;" text="Startdatum" />
+                                          <TableColumn fx:id="sceneVersicherung_alleVertraege_table_column_endDatum" prefWidth="204.0" style="-fx-alignment: CENTER;" text="Enddatum" />
                                        </columns>
                                        <VBox.margin>
                                           <Insets left="6.0" right="6.0" top="6.0" />

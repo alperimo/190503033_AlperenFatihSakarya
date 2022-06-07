@@ -109,8 +109,6 @@ public class DatabaseVersicherung {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM versicherungsvertraege");
             while (resultSet.next()) {
                 Person person = new Person();
-                //TODO: set person vorName, nachName and ausweisNummer from datebase according to person_typ and person_id
-                //TODO: get a versicherungstyp_name from versicherungs_typen according to versicherungs_typ_id;
                 setPersonInformationsFromPersonTypAndId(person, resultSet);
                 String versicherungsTypName = getVersicherungsTypNameFromId(resultSet.getInt("versicherungstyp_id"));
                 versicherungsVertraege.add(new VersicherungsVertrag(String.valueOf(resultSet.getInt("id")), resultSet.getString("versicherungstyp_id"), versicherungsTypName, person, VersicherungsVertrag.PersonTyp.valueOf(resultSet.getString("person_typ")), resultSet.getDate("startDatum"), resultSet.getDate("endDatum"), null));

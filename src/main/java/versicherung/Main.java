@@ -34,7 +34,7 @@ public class Main extends Application {
         launch();
     }
 
-    public Account getAccount(){
+    public static Account getAccount(){
         return account;
     }
 
