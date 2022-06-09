@@ -171,6 +171,9 @@ public class Dashboard implements Initializable {
 
     /* Scene - Mitarbeiter (alle Mitarbeiter) */
     @FXML
+    private TextField sceneMitarbeiter_alleMitarbeiter_field_name;
+
+    @FXML
     private TableView<Mitarbeiter> sceneMitarbeiter_alleMitarbeiter_table;
 
     @FXML
@@ -241,6 +244,9 @@ public class Dashboard implements Initializable {
     private Button sceneVersicherung_button_typen_bearbeiten;
 
     // Scene - Versicherung (alle Versicherungsvertraege auflisten)
+    @FXML
+    private TextField sceneVersicherung_alleVertraege_field_name;
+
     @FXML
     private TableView<VersicherungsVertrag> sceneVersicherung_alleVertraege_table;
 
@@ -731,10 +737,8 @@ public class Dashboard implements Initializable {
             ArrayList<Kunde> kundenList = DatabaseKunden.getAlleKunden();
             datenKunden = FXCollections.observableList(kundenList);
 
-            // filtering
             FilteredList<Kunde> filteredData = new FilteredList<>(datenKunden, p -> true);
             
-            // add a listener for text field sceneKunden_alleKunden_field_name
             sceneKunden_alleKunden_field_name.textProperty().addListener((observable, oldValue, newValue) -> {
                 filteredData.setPredicate(kunde -> {
                     // If filter text is empty, display all persons.
@@ -744,9 +748,9 @@ public class Dashboard implements Initializable {
                     // Compare first name and last name of every person with filter text.
                     String lowerCaseFilter = newValue.toLowerCase();
                     if (kunde.getVorName().toLowerCase().contains(lowerCaseFilter)) {
-                        return true; // Filter matches first name.
+                        return true;
                     } else if (kunde.getNachName().toLowerCase().contains(lowerCaseFilter)) {
-                        return true; // Filter matches last name.
+                        return true;
                     }
                     return false; // Does not match.
                 });
@@ -788,7 +792,36 @@ public class Dashboard implements Initializable {
         try{
             ArrayList<Mitarbeiter> mitarbeiterList = DatabaseMitarbeiter.getAlleMitarbeiter();
             datenMitarbeiter = FXCollections.observableList(mitarbeiterList);
-            sceneMitarbeiter_alleMitarbeiter_table.setItems(datenMitarbeiter);
+            
+            FilteredList<Mitarbeiter> filteredData = new FilteredList<>(datenMitarbeiter, p -> true);
+            
+            sceneMitarbeiter_alleMitarbeiter_field_name.textProperty().addListener((observable, oldValue, newValue) -> {
+                filteredData.setPredicate(mitarbeiter -> {
+                    // If filter text is empty, display all persons.
+                    if (newValue == null || newValue.isEmpty()) {
+                        return true;
+                    }
+                    // Compare first name and last name of every person with filter text.
+                    String lowerCaseFilter = newValue.toLowerCase();
+                    if (mitarbeiter.getVorName().toLowerCase().contains(lowerCaseFilter)) {
+                        return true;
+                    } else if (mitarbeiter.getNachName().toLowerCase().contains(lowerCaseFilter)) {
+                        return true;
+                    }
+                    return false; // Does not match.
+                });
+            });
+
+            SortedList<Mitarbeiter> sortedData = new SortedList<>(filteredData);
+
+            sortedData.comparatorProperty().bind(sceneMitarbeiter_alleMitarbeiter_table.comparatorProperty());
+
+            sceneMitarbeiter_alleMitarbeiter_table.setItems(sortedData);
+            
+            // without filtering
+            //sceneMitarbeiter_alleMitarbeiter_table.setItems(datenKunden);
+            
+            //sceneMitarbeiter_alleMitarbeiter_table.setItems(datenMitarbeiter);
         }
         catch (SQLException e){
             e.printStackTrace();
@@ -816,7 +849,39 @@ public class Dashboard implements Initializable {
         try{
             ArrayList<VersicherungsVertrag> versicherungsVertraegeList = DatabaseVersicherung.getAllVersicherungsVertraege();
             datenVersicherungsVertraege = FXCollections.observableList(versicherungsVertraegeList);
-            sceneVersicherung_alleVertraege_table.setItems(datenVersicherungsVertraege);
+
+            FilteredList<VersicherungsVertrag> filteredData = new FilteredList<>(datenVersicherungsVertraege, p -> true);
+            
+            sceneVersicherung_alleVertraege_field_name.textProperty().addListener((observable, oldValue, newValue) -> {
+                filteredData.setPredicate(vertrag -> {
+                    // If filter text is empty, display all persons.
+                    if (newValue == null || newValue.isEmpty()) {
+                        return true;
+                    }
+                    // Compare first name and last name of every person with filter text.
+                    String lowerCaseFilter = newValue.toLowerCase();
+                    Person person = vertrag.getPerson();
+                    if (person.getVorName().toLowerCase().contains(lowerCaseFilter)) {
+                        return true;
+                    } else if(person.getNachName().toLowerCase().contains(lowerCaseFilter))
+                    {
+                        return true;
+                    }
+                    return false; // Does not match.
+                });
+            });
+
+            SortedList<VersicherungsVertrag> sortedData = new SortedList<>(filteredData);
+
+            sortedData.comparatorProperty().bind(sceneVersicherung_alleVertraege_table.comparatorProperty());
+
+            sceneVersicherung_alleVertraege_table.setItems(sortedData);
+            
+            // without filtering
+            //sceneVersicherung_alleVertraege_table.setItems(datenVerischerungsVertraege);
+
+
+            //sceneVersicherung_alleVertraege_table.setItems(datenVersicherungsVertraege);
         }
         catch (SQLException e){
             e.printStackTrace();
