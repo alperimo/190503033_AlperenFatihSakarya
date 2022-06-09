@@ -4,6 +4,8 @@ import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -728,7 +730,37 @@ public class Dashboard implements Initializable {
         try{
             ArrayList<Kunde> kundenList = DatabaseKunden.getAlleKunden();
             datenKunden = FXCollections.observableList(kundenList);
-            sceneKunden_alleKunden_table.setItems(datenKunden);
+
+            // filtering
+            FilteredList<Kunde> filteredData = new FilteredList<>(datenKunden, p -> true);
+            
+            // add a listener for text field sceneKunden_alleKunden_field_name
+            sceneKunden_alleKunden_field_name.textProperty().addListener((observable, oldValue, newValue) -> {
+                filteredData.setPredicate(kunde -> {
+                    // If filter text is empty, display all persons.
+                    if (newValue == null || newValue.isEmpty()) {
+                        return true;
+                    }
+                    // Compare first name and last name of every person with filter text.
+                    String lowerCaseFilter = newValue.toLowerCase();
+                    if (kunde.getVorName().toLowerCase().contains(lowerCaseFilter)) {
+                        return true; // Filter matches first name.
+                    } else if (kunde.getNachName().toLowerCase().contains(lowerCaseFilter)) {
+                        return true; // Filter matches last name.
+                    }
+                    return false; // Does not match.
+                });
+            });
+
+            SortedList<Kunde> sortedData = new SortedList<>(filteredData);
+
+            sortedData.comparatorProperty().bind(sceneKunden_alleKunden_table.comparatorProperty());
+
+            sceneKunden_alleKunden_table.setItems(sortedData);
+            
+            // without filtering
+            //sceneKunden_alleKunden_table.setItems(datenKunden);
+
         }
         catch (SQLException e){
             e.printStackTrace();
