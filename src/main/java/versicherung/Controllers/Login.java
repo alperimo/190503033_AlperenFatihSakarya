@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -46,7 +47,14 @@ public class Login {
         }
         else{
             // Wrong id or password!
-            System.out.println("Wrong id or password!");
+            
+            // create a alert class and set the message "Wrong id or password" and show it
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Wrong id or password");
+            alert.setContentText("Please try again!");
+            alert.showAndWait();
+
         }
 
     }

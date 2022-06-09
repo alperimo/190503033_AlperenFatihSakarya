@@ -104,6 +104,10 @@ public class Dashboard implements Initializable {
     private Button sceneKunden_button_neueKunden;
 
     /* Scene - Kunden (alle Kunden) */
+
+    @FXML
+    private TextField sceneKunden_alleKunden_field_name;
+
     @FXML
     private TableView<Kunde> sceneKunden_alleKunden_table;
 
