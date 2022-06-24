@@ -271,6 +271,8 @@ public class Dashboard implements Initializable {
     private Button sceneVersicherung_alleVertraege_button_delete;
 
     // Scene - Versicherung (VersicherungsTypen bearbeiten)
+    @FXML
+    private TextField sceneVersicherung_VersicherungsTypen_field_name;
 
     @FXML
     private TableView<VersicherungsTyp> sceneVersicherung_VersicherungsTypen_table;
@@ -903,7 +905,34 @@ public class Dashboard implements Initializable {
         try{
             ArrayList<VersicherungsTyp> versicherungsTypenList = DatabaseVersicherung.getAllVersicherungsTypen();
             datenVersicherungsTypen = FXCollections.observableList(versicherungsTypenList);
-            sceneVersicherung_VersicherungsTypen_table.setItems(datenVersicherungsTypen);
+            
+            // filter data according to the text in the field "sceneVersicherung_VersicherungsTypen_field_name"
+            FilteredList<VersicherungsTyp> filteredData = new FilteredList<>(datenVersicherungsTypen, p -> true);
+
+            // add listener to the field "sceneVersicherung_VersicherungsTypen_field_name"
+            sceneVersicherung_VersicherungsTypen_field_name.textProperty().addListener((observable, oldValue, newValue) -> {
+                filteredData.setPredicate(typ -> {
+                    if (newValue == null || newValue.isEmpty()) {
+                        return true;
+                    }
+                    
+                    String lowerCaseFilter = newValue.toLowerCase();
+                    if (typ.getName().toLowerCase().contains(lowerCaseFilter)) {
+                        return true;
+                    }
+                    return false;
+                });
+            });
+
+            SortedList<VersicherungsTyp> sortedData = new SortedList<>(filteredData);
+
+            // comparator for the sorted data
+            sortedData.comparatorProperty().bind(sceneVersicherung_VersicherungsTypen_table.comparatorProperty());
+
+            sceneVersicherung_VersicherungsTypen_table.setItems(sortedData);
+            
+            // without filtering
+            //sceneVersicherung_VersicherungsTypen_table.setItems(datenVersicherungsTypen);
         }
         catch (SQLException e){
             e.printStackTrace();
