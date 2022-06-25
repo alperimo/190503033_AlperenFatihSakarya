@@ -19,7 +19,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         globalStage = stage;
-        stage.setTitle("Pek-Versicherung V1.0");
+        stage.setTitle("Pek-Versicherung V4.0");
         loadLogin();
     }
 

@@ -539,14 +539,20 @@ public class Dashboard implements Initializable {
         if (event.getSource() == sceneVersicherung_button_vertraege_auflisten)
         {
             sceneVersicherung_alleVertraege.setVisible(true);
+            sceneUrl.setText("/versicherung/versicherung/alleVertraege");
+            sceneName.setText("Alle Vertraege");
             refreshVersicherungsVertraegenList();
         }
         else if (event.getSource() == sceneVersicherung_button_vertraege_erstellen){
             sceneVersicherung_neueVertraege_erstellen.setVisible(true);
+            sceneUrl.setText("/versicherung/versicherung/neuerVertrag");
+            sceneName.setText("Neuer Vertrag");
             refreshVersicherungsVertrageErtellenItems();
         }
         else if (event.getSource() == sceneVersicherung_button_typen_bearbeiten) {
             sceneVersicherung_VersicherungsTypen.setVisible(true);
+            sceneUrl.setText("/versicherung/versicherung/versicherungsTyp");
+            sceneName.setText("Versicherungstypen");
             refreshVersicherungsTypenList();
         }
     }
@@ -881,7 +887,6 @@ public class Dashboard implements Initializable {
             
             // without filtering
             //sceneVersicherung_alleVertraege_table.setItems(datenVerischerungsVertraege);
-
 
             //sceneVersicherung_alleVertraege_table.setItems(datenVersicherungsVertraege);
         }
