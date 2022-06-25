@@ -314,6 +314,26 @@ public class Dashboard implements Initializable {
     @FXML
     private void handleLeftMenuButtonClicks(ActionEvent event)
     {
+        if(event.getSource() == leftMenu_btnAbmelden)
+        {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Abmelden");
+            alert.setContentText("Möchten Sie sich wirklich abmelden?");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK){
+                try{
+                    Main main = new Main();
+                    main.loadLogin();
+                    main.getAccount().abMelden();
+                }catch(IOException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+            return;
+        }
+
         clearSceneHeader();
         hideAllSceneItems();
         if (event.getSource() == leftMenu_btnKunden)
@@ -349,24 +369,7 @@ public class Dashboard implements Initializable {
             sceneName.setText("Über uns");
             sceneUberuns.setVisible(true);
         }
-        else if(event.getSource() == leftMenu_btnAbmelden)
-        {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Abmelden");
-            alert.setContentText("Möchten Sie sich wirklich abmelden?");
 
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == ButtonType.OK){
-                try{
-                    Main main = new Main();
-                    main.loadLogin();
-                    main.getAccount().abMelden();
-                }catch(IOException e)
-                {
-                    e.printStackTrace();
-                }
-            }
-        }
     }
 
     @FXML
