@@ -351,15 +351,21 @@ public class Dashboard implements Initializable {
         }
         else if(event.getSource() == leftMenu_btnAbmelden)
         {
-            try{
-                Main main = new Main();
-                main.loadLogin();
-                main.getAccount().abMelden();
-            }catch(IOException e)
-            {
-                e.printStackTrace();
-            }
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Abmelden");
+            alert.setContentText("Möchten Sie sich wirklich abmelden?");
 
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK){
+                try{
+                    Main main = new Main();
+                    main.loadLogin();
+                    main.getAccount().abMelden();
+                }catch(IOException e)
+                {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
@@ -440,8 +446,6 @@ public class Dashboard implements Initializable {
                 errorAlert.setContentText("Kunde konnte nicht gelöscht werden.");
                 errorAlert.show();
             }
-        }else{
-            System.out.println("Canceled");
         }
     }
 
@@ -523,8 +527,6 @@ public class Dashboard implements Initializable {
                 errorAlert.setContentText("Mitarbeiter konnte nicht gelöscht werden.");
                 errorAlert.show();
             }
-        }else{
-            System.out.println("Canceled");
         }
     }
 
@@ -632,8 +634,6 @@ public class Dashboard implements Initializable {
                 errorAlert.setContentText("VersicherungsTyp konnte nicht gelöscht werden.");
                 errorAlert.show();
             }
-        }else{
-            System.out.println("Canceled");
         }
     }
 
