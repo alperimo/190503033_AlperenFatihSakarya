@@ -569,7 +569,7 @@
                         </StackPane>
                      </children>
                   </VBox>
-                  <VBox fx:id="sceneVersicherung" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="container" stylesheets="@../css/styles.css">
+                  <VBox fx:id="sceneVersicherung" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="container" stylesheets="@../css/styles.css" visible="false">
                      <children>
                         <StackPane fx:id="sceneVersicherung_stackpane" prefHeight="150.0" prefWidth="200.0">
                            <children>
@@ -759,11 +759,11 @@
                         </StackPane>
                      </children>
                   </VBox>
-                  <VBox fx:id="sceneUberuns" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="container" stylesheets="@../css/styles.css" visible="false">
+                  <VBox fx:id="sceneUberuns" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="container" stylesheets="@../css/styles.css">
                      <children>
-                        <Label text="Über uns">
+                        <Label text="Seit dem Jahr 1995 bieten wir Ihnen&#10; die Möglichkeit, die Versicherungsarbeit zu ermöglichen. &#10;Durch unseres PV-Dashboard können Sie alle &#10;Vorgaenge einfach zu verwalten." textAlignment="CENTER">
                            <font>
-                              <Font size="51.0" />
+                              <Font size="25.0" />
                            </font>
                         </Label>
                      </children>
