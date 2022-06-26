@@ -369,7 +369,6 @@ public class Dashboard implements Initializable {
             sceneName.setText("Über uns");
             sceneUberuns.setVisible(true);
         }
-
     }
 
     @FXML

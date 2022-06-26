@@ -29,8 +29,6 @@ public class Main extends Application {
 
         account = new Account();
 
-        //testDB();
-
         launch();
     }
 
@@ -56,26 +54,5 @@ public class Main extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Views/Dashboard.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 960, 620);
         globalStage.setScene(scene);
-    }
-
-    public static void testDB(){
-        String insertSql = "INSERT INTO kunden (ausweisnummer, vorName, nachName, geburstDatum, telefonNummer, adresse) VALUES "
-                + "('123', 'Alp', 'Baba', '2016-01-01', '095255215', 'lannnnnnn');";
-
-        ResultSet resultSet = null;
-        try(PreparedStatement statement = connection.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS))
-        {
-            statement.execute();
-            // Retrieve the generated key from the insert.
-            resultSet = statement.getGeneratedKeys();
-
-            // Print the ID of the inserted row.
-            while(resultSet.next()){
-                System.out.println("Generated: " + resultSet.getString(1));
-            }
-        }
-        catch(SQLException e){
-            e.printStackTrace();
-        }
     }
 }
