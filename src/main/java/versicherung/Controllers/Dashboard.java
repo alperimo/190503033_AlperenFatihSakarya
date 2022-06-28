@@ -668,7 +668,36 @@ public class Dashboard implements Initializable {
     @FXML
     private void handleLoeschenVersicherungsVertraegeClick(ActionEvent event)
     {
-        //TODO
+        // open a confirmation dialog
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("VersicherungsVertrag Löschen");
+        alert.setHeaderText("VersicherungsVertrag Löschen");
+        alert.setContentText("Möchten Sie diesen VersicherungsVertrag wirklich löschen?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            VersicherungsVertrag selectedVersicherungsVertrag = sceneVersicherung_alleVertraege_table.getSelectionModel().getSelectedItem();
+
+            if (selectedVersicherungsVertrag == null)
+                return;
+
+            VersicherungsVertrag versicherungsVertrag = new VersicherungsVertrag(selectedVersicherungsVertrag.getVertrag_id(), selectedVersicherungsVertrag.getVersicherungstyp_id(), selectedVersicherungsVertrag.getVersicherungstyp_name(), selectedVersicherungsVertrag.getPerson(), selectedVersicherungsVertrag.getPerson_typ(), selectedVersicherungsVertrag.getStartDatum(), selectedVersicherungsVertrag.getEndDatum(), null);
+            if (DatabaseVersicherung.loescheVersicherungsVertrag(versicherungsVertrag)){
+                Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+                confirmationAlert.setTitle("VersicherungsVertrag Löschen");
+                confirmationAlert.setHeaderText("VersicherungsVertrag Löschen");
+                confirmationAlert.setContentText("VersicherungsVertrag wurde erfolgreich gelöscht.");
+                confirmationAlert.show();
+                refreshVersicherungsVertraegenList();
+            }
+            else{
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setTitle("VersicherungsVertrag Löschen");
+                errorAlert.setHeaderText("VersicherungsVertrag Löschen");
+                errorAlert.setContentText("VersicherungsVertrag konnte nicht gelöscht werden.");
+                errorAlert.show();
+            }
+        }
     }
 
     @Override

@@ -119,6 +119,26 @@ public class DatabaseVersicherung {
         return versicherungsVertraege;
     }
 
+    public static boolean loescheVersicherungsVertrag(VersicherungsVertrag versicherungsVertrag)
+    {
+        Connection connection = Main.getConnection();
+
+        String deleteSql = "DELETE FROM versicherungsvertraege WHERE id = '"+versicherungsVertrag.getVertrag_id()+"';";
+
+        boolean isSuccesful = false;
+
+        try(PreparedStatement preparedStatement = connection.prepareStatement(deleteSql))
+        {
+            preparedStatement.executeUpdate();
+            isSuccesful = true;
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return isSuccesful;
+    }
+
     public static void setPersonInformationsFromPersonTypAndId(Person person, ResultSet resultSet) throws SQLException
     {
         int personId = resultSet.getInt("person_id");
